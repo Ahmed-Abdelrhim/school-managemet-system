@@ -27,6 +27,7 @@ class StudentRegController extends Controller
         $data['class_id'] = StudentClass::query()->orderBy('id', 'desc')->first()->id;
         // dd($data['class_id']);
         $data['allData'] = AssignStudent::query()->where('year_id', $data['year_id'])->where('class_id', $data['class_id'])->get();
+        // return $data;
         return view('backend.student.student_reg.student_view', $data);
 
     }
@@ -40,7 +41,7 @@ class StudentRegController extends Controller
         $data['year_id'] = $request->year_id;
         $data['class_id'] = $request->class_id;
 
-        $data['allData'] = AssignStudent::where('year_id', $request->year_id)->where('class_id', $request->class_id)->get();
+        $data['allData'] = AssignStudent::query()->where('year_id', $request->year_id)->where('class_id', $request->class_id)->get();
         return view('backend.student.student_reg.student_view', $data);
 
     }
