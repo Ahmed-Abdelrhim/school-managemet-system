@@ -23,9 +23,9 @@
 <div class="container h-p100">
     <div class="row align-items-center justify-content-md-center h-p100">
 
-        @if(session()->has('error'))
+        @if(Session::get('error'))
             <script>
-                toastr.error('{{ session()->get('error') }}');
+                toastr.error(" {{ Session::get('error') }} ");
             </script>
         @endif
 
