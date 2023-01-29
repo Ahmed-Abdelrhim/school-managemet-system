@@ -45,11 +45,12 @@
                                                 <td>{{ $user->code }}</td>
                                                 <td>
                                                     <a href="{{ route('users.edit',$user->id) }}" class="btn btn-info">Edit</a>
-                                                    <a href="#" data-toggle="modal"
-                                                       data-target="#editStudent{{$user->id}}"
-                                                       class="btn btn-info">Edit</a>
-                                                    {{--                                                    <a href="{{ route('users.delete',$user->id) }}"--}}
-                                                    {{--                                                       class="btn btn-danger" id="delete">Delete</a>--}}
+                                                    {{--   <a href="#" data-toggle="modal"--}}
+                                                    {{-- data-target="#editStudent{{$user->id}}"--}}
+                                                    {{-- class="btn btn-info">Edit</a>--}}
+
+                                                    <a href="{{ route('users.delete',$user->id) }}"
+                                                       class="btn btn-danger" id="delete">Delete</a>
                                                     {{--                                                    @include('backend.user.modal')--}}
                                                 </td>
 

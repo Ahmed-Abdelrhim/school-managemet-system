@@ -200,7 +200,7 @@
 </head>
 <body>
 <nav class="shelf">
-    <a class="book home-page" href="{{route('home')}}" style="text-decoration: none">Home page</a>
+    <a class="book home-page" href="{{route('dashboard')}}" style="text-decoration: none">Home page</a>
     <a class="book about-us">About us</a>
     <a class="book contact">Contact</a>
     <a class="book faq">F.A.Q.</a>

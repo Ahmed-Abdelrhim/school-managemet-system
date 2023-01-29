@@ -10,6 +10,7 @@ class UserController extends Controller
 {
     public function UserView()
     {
+
         if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
             return view('errors.403');
         $allData = User::all();
