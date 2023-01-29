@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function UserView()
     {
-        return $allData = User::all();
+        $allData = User::all();
         $data['allData'] = User::query()->where('usertype', 'Admin')->get();
         return view('backend.user.view_user', $data);
 
