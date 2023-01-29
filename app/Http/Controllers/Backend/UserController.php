@@ -10,6 +10,8 @@ class UserController extends Controller
 {
     public function UserView()
     {
+        if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
+            return view('errors.403');
         $allData = User::all();
         $data['allData'] = User::query()->where('usertype', 'Admin')->get();
         return view('backend.user.view_user', $data);
@@ -25,6 +27,8 @@ class UserController extends Controller
 
     public function UserStore(Request $request)
     {
+        if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
+            return view('errors.403');
 
         $validatedData = $request->validate([
             'email' => 'required|unique:users',
@@ -53,7 +57,10 @@ class UserController extends Controller
 
     public function UserEdit($id)
     {
-        $editData = User::find($id);
+        if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
+            return view('errors.403');
+
+        $editData = User::query()->find($id);
         return view('backend.user.edit_user', compact('editData'));
 
     }
@@ -62,7 +69,10 @@ class UserController extends Controller
     public function UserUpdate(Request $request, $id)
     {
 
-        $data = User::find($id);
+        if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
+            return view('errors.403');
+
+        $data = User::query()->find($id);
         $data->name = $request->name;
         $data->email = $request->email;
         $data->role = $request->role;
@@ -80,7 +90,10 @@ class UserController extends Controller
 
     public function UserDelete($id)
     {
-        $user = User::find($id);
+        if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
+            return view('errors.403');
+
+        $user = User::query()->find($id);
         $user->delete();
 
         $notification = array(
