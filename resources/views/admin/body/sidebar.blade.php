@@ -31,11 +31,12 @@
           </a>
         </li>
 
-    @if(Auth::user()->role == 'Admin')
+
+    @if(ucfirst(strtolower(Auth::user()->role))  == 'Admin')
         <li class="treeview {{ ($prefix == '/users')?'active':'' }} " >
           <a href="#">
             <i data-feather="message-circle"></i>
-            <span>Manage User</span>
+            <span>Manage Users</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>
