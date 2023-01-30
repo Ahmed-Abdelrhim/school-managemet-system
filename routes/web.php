@@ -488,3 +488,5 @@ Route::post('send/sms/message',[\App\Http\Controllers\Backend\SmsController::cla
 
 //NEXMO_KEY=26df5740
 //NEXMO_SECRET=9C2AE7FXrQTfpvK8
+
+// 23 - Manage User Profile => Video 3 finished
