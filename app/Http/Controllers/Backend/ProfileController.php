@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
     public function ProfileView(){
     	$id = Auth::user()->id;
-    	$user = User::find($id);
+    	$user = User::query()->find($id);
 
     	return view('backend.user.view_profile',compact('user'));
     }
@@ -20,14 +20,14 @@ class ProfileController extends Controller
 
     public function ProfileEdit(){
     	$id = Auth::user()->id;
-    	$editData = User::find($id);
+    	$editData = User::query()->find($id);
     	return view('backend.user.edit_profile',compact('editData'));
     }
 
 
     public function ProfileStore(Request $request){
 
-    	$data = User::find(Auth::user()->id);
+    	$data = User::query()->find(Auth::user()->id);
     	$data->name = $request->name;
     	$data->email = $request->email;
     	$data->mobile = $request->mobile;
@@ -50,10 +50,10 @@ class ProfileController extends Controller
 
     	return redirect()->route('profile.view')->with($notification);
 
-    } // End Method 
+    } // End Method
 
 
- 
+
  	public function PasswordView(){
  		return view('backend.user.edit_password');
  	}
@@ -79,7 +79,7 @@ class ProfileController extends Controller
     	}
 
 
- 	} // End Metod 
+ 	} // End Metod
 
 
 
@@ -88,4 +88,3 @@ class ProfileController extends Controller
 
 
 }
- 

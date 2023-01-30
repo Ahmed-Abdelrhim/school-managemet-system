@@ -479,6 +479,8 @@ Route::get('student/idcard/get', [ResultReportController::class, 'IdcardGet'])->
 
 
 
-}); // End Middleare Auth Route
+}); // End Middleware Auth Route
 
-});  // Prevent Back Middleare
+});  // Prevent Back Middleware
+
+// 202301291300myPic-1.jpg
