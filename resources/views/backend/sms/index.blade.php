@@ -28,9 +28,9 @@
                                             <div class="form-group">
                                                 <h5>Phone Number <span class="text-danger">*</span></h5>
                                                 <div class="controls">
-                                                    <input type="text" name="phone_num" id="phone_num"
+                                                    <input type="text" name="mobile_number" id="mobile_number"
                                                            class="form-control">
-                                                    @error('phone_num')
+                                                    @error('mobile_number')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>

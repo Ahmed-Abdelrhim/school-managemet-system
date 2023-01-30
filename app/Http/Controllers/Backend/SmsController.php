@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Nexmo\Laravel\Facade\Nexmo;
 use Twilio\Rest\Client;
+use function PHPUnit\Framework\stringStartsWith;
 
 class SmsController extends Controller
 {
@@ -19,8 +20,8 @@ class SmsController extends Controller
     {
         // return $request;
         $validator = Validator::make($request->all(), [
-            'phone_num' => 'required|regex:/(01)[0-9]{9}/|not_regex:/[a-z]/|size:11',
-            // 'phone_num' => 'required',
+            'mobile_number' => 'required|regex:/(01)[0-9]{9}/|not_regex:/[a-z]/|size:11',
+            // 'mobile_number' => 'required',
             'msg' => 'required|string|min:4',
         ]);
 
@@ -29,8 +30,11 @@ class SmsController extends Controller
 
         // return $request;
         $receiverNumber = '+20';
-        $receiverNumber .= $request->get('phone_num');
+        $mobile = $request->get('mobile_number');
+        if (str_starts_with($mobile, '0'))
+            $mobile = str_replace('0', '', $mobile);
 
+        $receiverNumber .= $mobile;
         $message = $request->get('msg');
 
         $nexmo = app('Nexmo\Client');
