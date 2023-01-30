@@ -11,7 +11,7 @@
                 <!-- Basic Forms -->
                 <div class="box">
                     <div class="box-header with-border">
-                        <h4 class="box-title">Change Password</h4>
+                        <h4 class="box-title">Send Sms</h4>
 
                     </div>
                     <!-- /.box-header -->
@@ -19,49 +19,39 @@
                         <div class="row">
                             <div class="col">
 
-                                <form method="post" action="{{ route('password.update') }}">
+                                <form method="post" action="{{ route('send.sms') }}">
                                     @csrf
                                     <div class="row">
-                                        <div class="col-12">
+                                        <div class="col-6">
 
 
                                             <div class="form-group">
-                                                <h5>Current Password <span class="text-danger">*</span></h5>
+                                                <h5>Phone Number <span class="text-danger">*</span></h5>
                                                 <div class="controls">
-                                                    <input type="password" name="oldpassword" id="current_password"
+                                                    <input type="text" name="phone_num" id="phone_num"
                                                            class="form-control">
-                                                    @error('oldpassword')
+                                                    @error('phone_num')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
                                             </div>
 
-
                                             <div class="form-group">
-                                                <h5>New Password <span class="text-danger">*</span></h5>
+                                                <h5>Message <span class="text-danger">*</span></h5>
                                                 <div class="controls">
-                                                    <input type="password" name="password" id="password"
+                                                    <input type="text" name="msg" id="msg"
                                                            class="form-control">
-                                                    @error('password')
+                                                    @error('msg')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
                                             </div>
 
-                                            <div class="form-group">
-                                                <h5>Confirm Password <span class="text-danger">*</span></h5>
-                                                <div class="controls">
-                                                    <input type="password" name="password_confirmation"
-                                                           id="password_confirmation" class="form-control">
-                                                    @error('password_confirmation')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
 
-                                                </div>
 
-                                            </div>
+
 
 
                                             <div class="text-xs-right">

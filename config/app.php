@@ -177,6 +177,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Nexmo\Laravel\NexmoServiceProvider::class,
+
+
 
     ],
 
@@ -230,6 +234,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
 
     ],
 

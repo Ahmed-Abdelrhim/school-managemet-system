@@ -123,6 +123,16 @@
       <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
       <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/vendor/twilio/sdk" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-diactoros" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/vendor/nexmo/laravel" />
+      <path value="$PROJECT_DIR$/vendor/vonage/nexmo-bridge" />
+      <path value="$PROJECT_DIR$/vendor/vonage/client-core" />
+      <path value="$PROJECT_DIR$/vendor/vonage/client" />
+      <path value="$PROJECT_DIR$/vendor/psr/clock" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

@@ -477,10 +477,14 @@ Route::get('student/idcard/get', [ResultReportController::class, 'IdcardGet'])->
 });
 
 
-
+Route::get('send/sms',[\App\Http\Controllers\Backend\SmsController::class,'viewSendSmsPage']);
+Route::post('send/sms/message',[\App\Http\Controllers\Backend\SmsController::class,'sendSms'])->name('send.sms');
 
 }); // End Middleware Auth Route
 
 });  // Prevent Back Middleware
 
 // 202301291300myPic-1.jpg
+
+//NEXMO_KEY=26df5740
+//NEXMO_SECRET=9C2AE7FXrQTfpvK8
