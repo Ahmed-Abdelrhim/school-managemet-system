@@ -141,6 +141,12 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/vonage/client-core" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vonage/nexmo-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vonage/client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-client-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/message-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/httplug" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
