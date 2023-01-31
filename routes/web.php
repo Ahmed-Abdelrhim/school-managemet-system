@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\SmsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\UserController;
@@ -477,8 +478,8 @@ Route::get('student/idcard/get', [ResultReportController::class, 'IdcardGet'])->
 });
 
 
-Route::get('send/sms',[\App\Http\Controllers\Backend\SmsController::class,'viewSendSmsPage']);
-Route::post('send/sms/message',[\App\Http\Controllers\Backend\SmsController::class,'sendSms'])->name('send.sms');
+Route::get('send/sms',[SmsController::class,'viewSendSmsPage']);
+Route::post('send/sms/message',[SmsController::class,'sendSms'])->name('send.sms');
 
 }); // End Middleware Auth Route
 

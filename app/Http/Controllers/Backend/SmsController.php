@@ -37,12 +37,17 @@ class SmsController extends Controller
         $receiverNumber .= $mobile;
         $message = $request->get('msg');
 
-        $nexmo = app('Nexmo\Client');
-        $nexmo->message()->send([
-            'to' => $receiverNumber,
-            'from' => '+20 115 206 7271',
-            'text' => $message,
-        ]);
+
+        //        $vonage = app('Vonage\Client');
+        //        $text = new \Vonage\SMS\Message\SMS($receiverNumber, '+20 115 206 7271', $message);
+        //        $vonage->sms()->send($text);
+
+        //        $nexmo = app('Nexmo\Client');
+        //        $nexmo->message()->send([
+        //            'to' => $receiverNumber,
+        //            'from' => '+20 115 206 7271',
+        //            'text' => $message,
+        //        ]);
 
 
         $notification = array(
