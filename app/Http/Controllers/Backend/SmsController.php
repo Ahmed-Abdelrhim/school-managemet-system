@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Verification;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Twilio\Rest\Client;
 
@@ -65,6 +67,44 @@ class SmsController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function checkCode()
+    {
+        return view('backend.sms.check_code');
+    }
+
+    public function verifyCode(Request $request)
+    {
+        $code = $request->get('code');
+        $verification = Verification::query()->where('code', $code)->latest()->first();
+        if (!$verification) {
+            $notification = array(
+                'message' => 'Code does not exist',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+
+        $now = Carbon::now();
+        if ($now->isBefore($verification->expires_at)) {
+            return redirect()->route('change.password.form',encrypt($verification->user_id));
+        }
+        $now = now();
+        return Carbon::parse($now)->format('H:i:s');
+
+        $notification = array(
+            'message' => 'Code is not valid right now',
+            'alert-type' => 'info'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function changePassword($user_id)
+    {
+        return decrypt($user_id);
+    }
+
 }
 
 
