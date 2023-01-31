@@ -1,7 +1,16 @@
 <?php
 
+use App\Models\Verification;
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
+use Laravel\Fortify\Contracts\FailedPasswordResetLinkRequestResponse;
+use Laravel\Fortify\Contracts\SuccessfulPasswordResetLinkRequestResponse;
+use Laravel\Fortify\Fortify;
+use Twilio\Rest\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,13 +100,109 @@ Artisan::command('inspire', function () {
 
 
 
-//        // $account_sid = getenv("TWILIO_SID");
-//        $account_sid = 'ACca4d87b5d781f19f73128cee7bfae176';
-//        // $auth_token = getenv("TWILIO_TOKEN");
-//        $auth_token = '898d39225bca861f309a1c75ad74ca63';
-//        $twilio_number = getenv("TWILIO_FROM");
-//        $client = new Client($account_sid, $auth_token);
+//     public function store(Request $request)
+//    {
 //
-//        $client->messages->create($receiverNumber, [
-//            'from' => '+201152067271',
-//            'body' => $message]);
+//        $user = User::query()->where('email',$request->get('email'))->first();
+//
+//        if (!$user) {
+//            $notifications = array(
+//                'message' => 'Email Not Found',
+//                'alert-type' => 'info',
+//            );
+//            return redirect()->back()->with($notifications);
+//        }
+//        $code = rand(111111,123456);
+//
+//        try {
+//            DB::beginTransaction();
+//            Verification::query()->create([
+//                'user_id' => $user->id,
+//                'code' => $code,
+//                'expires_at' => Carbon::now()->addMinutes(10),
+//                'created_at' => Carbon::now(),
+//                'updated_at' => Carbon::now(),
+//            ]);
+//            DB::commit();
+//
+//            // Send this code user mobile phone
+//            $msg = 'Your reset password code is : '. $code;
+//
+//            $sent = $this->sendSms($user->mobile , $msg);
+//            if (!$sent) {
+//                $notifications = array(
+//                    'message' => 'Something went wrong try again later!',
+//                    'alert-type' => 'error',
+//                );
+//                return redirect()->back()->with($notifications);
+//            }
+//
+//            $notification = array(
+//                'message' => 'Sms Sent Successfully',
+//                'alert-type' => 'success'
+//            );
+//            return redirect()->route('check.code',encrypt($user->id))->with($notification);
+//
+//        } catch (\Exception $e) {
+//            DB::rollBack();
+//            $notifications = array(
+//                'message' => 'Something went wrong try again later',
+//                'alert-type' => 'error',
+//            );
+//            return redirect()->back()->with($notifications);
+//        }
+//
+//
+//        return $user->mobile;
+//
+//
+//        $request->validate([Fortify::email() => 'required|email']);
+//
+//        // We will send the password reset link to this user. Once we have attempted
+//        // to send the link, we will examine the response then see the message we
+//        // need to show to the user. Finally, we'll send out a proper response.
+//        $status = $this->broker()->sendResetLink(
+//            $request->only(Fortify::email())
+//        );
+//
+//        return $status == Password::RESET_LINK_SENT
+//                    ? app(SuccessfulPasswordResetLinkRequestResponse::class, ['status' => $status])
+//                    : app(FailedPasswordResetLinkRequestResponse::class, ['status' => $status]);
+//    }
+//
+//
+//    public function sendSms($mob_number , $code)
+//    {
+//        $sent = false;
+//        $receiverNumber = '+20 ';
+//        $mobile = $mob_number;
+//        if (str_starts_with($mob_number, '0')) {
+//            $mobile = substr($mob_number, 1);
+//        }
+//
+//        $receiverNumber .= $mobile;
+//        $message = $code;
+//
+//        try {
+//            $twilio_number = '+16067332573';
+//            $twilio_sid = getenv('TWILIO_SID');
+//            $twilio_token = getenv('TWILIO_TOKEN');
+//            $twilio_from = getenv('TWILIO_FROM');
+//
+//            $client = new Client($twilio_sid, $twilio_token);
+//            $client->messages->create($receiverNumber, [
+//                'from' => $twilio_from,
+//                'body' => $message,
+//            ]);
+//
+//            //            $notification = array(
+//            //                'message' => 'Sms Sent Successfully',
+//            //                'alert-type' => 'success'
+//            //            );
+//            $sent = true;
+//            // return redirect()->back()->with($notification);
+//        } catch (\Exception $e) {
+//            $sent = false;
+//        }
+//        return $sent;
+//    }
