@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Verification;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -10,6 +11,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Twilio\Rest\Client;
 
@@ -104,23 +107,47 @@ class SmsController extends Controller
 
     public function changePassword($user_id)
     {
+        //        if (is_numeric($user_id))
+        //            return 'true';
+        //        return 'false';
         if (!$user_id || is_numeric($user_id)) {
             $notification = array(
                 'message' => 'Something Went Wrong',
                 'alert-type' => 'error'
             );
-            return redirect()->back()->with($notification);
+            return view('error.404');
         }
 
         $id = decrypt($user_id);
         return view('backend.sms.change_password', ['id' => $id]);
     }
 
-    public function changePasswordFromCode(Request $request , $id)
+    public function changePasswordFromCode(Request $request , $user_id)
     {
-        return $id = decrypt($id);
-        return $request;
+        $validator = Validator::make($request->all(),[
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $user_id = decrypt($user_id);
+        $user = User::query()->find($user_id);
+        if (!$user)
+            return view('errors.404');
+
+        $user->password = Hash::make($request->get('password'));
+        $user->save();
+        Auth::login($user);
+        return redirect()->route('dashboard');
     }
+
+    //    public function play()
+    //    {
+    //        $user = User::query()->find(1);
+    //        Auth::login($user);
+    //        return redirect()->route('dashboard');
+    //    }
 
 }
 

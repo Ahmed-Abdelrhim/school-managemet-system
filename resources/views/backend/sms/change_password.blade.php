@@ -12,7 +12,7 @@
 
         <x-jet-validation-errors class="mb-4"/>
 
-        <form method="POST" action="{{ route('change.password.from.code',$id) }}">
+        <form method="POST" action="{{ route('change.password.from.code',encrypt($id)) }}">
             @csrf
 
             <div class="block">
@@ -23,8 +23,8 @@
             </div>
 
 
-            <div class="block">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm-new Password') }}"/>
+            <div class="block" style="margin-top: 25px;">
+                <x-jet-label for="password_confirmation" value="{{ __('Re-new Password') }}"/>
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password"
                              name="password_confirmation" :value="old('password_confirmation')" required
                              autofocus/>
@@ -60,3 +60,4 @@
     }
     @endif
 </script>
+{{--eyJpdiI6IkN3dE5Ob0FBTlpKYlNKcGNMSTVIRVE9PSIsInZhbHVlIjoiSVNhUmh1OUI4YkRxeDhpVkpyNDlCQT09IiwibWFjIjoiMzQxMGIwYWY5ZjliM2UzZWQwOWEzZTRiMjY0MjFlMzViMDVkOTg1OWRmNGUxOWZkYzJlZGYyMGJjMDUxZjY3MyIsInRhZyI6IiJ9--}}
