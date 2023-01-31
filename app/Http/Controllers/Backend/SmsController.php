@@ -71,15 +71,39 @@ class SmsController extends Controller
         }
     }
 
-    public function checkCode()
+    public function checkCode($user_id)
     {
-        return view('backend.sms.check_code');
+        if (!$user_id || is_numeric($user_id)) {
+            $notification = array(
+                'message' => 'Something Went Wrong',
+                'alert-type' => 'error'
+            );
+            return view('error.404');
+        }
+        $user_id = decrypt($user_id);
+        return view('backend.sms.check_code',['id' => $user_id]);
     }
 
-    public function verifyCode(Request $request)
+    public function verifyCode(Request $request , $user_id)
     {
+        if (!$user_id || is_numeric($user_id)) {
+            $notification = array(
+                'message' => 'Something Went Wrong',
+                'alert-type' => 'error'
+            );
+            return view('error.404');
+        }
+
+        $user_id = decrypt($user_id);
+        $user = User::query()->find($user_id);
+        if (!$user)
+            return view('errors.404');
+
         $code = $request->get('code');
-        $verification = Verification::query()->where('code', $code)->latest()->first();
+        $verification = Verification::query()
+            ->where('code', $code)
+            ->where('user_id',$user->id)
+            ->latest()->first();
         if (!$verification) {
             $notification = array(
                 'message' => 'Code does not exist',
@@ -136,9 +160,11 @@ class SmsController extends Controller
         if (!$user)
             return view('errors.404');
 
+
         $user->password = Hash::make($request->get('password'));
         $user->save();
-        Auth::login($user);
+        $user_after_updating_password = User::query()->find($user_id);
+        Auth::login($user_after_updating_password);
         return redirect()->route('dashboard');
     }
 
@@ -152,3 +178,4 @@ class SmsController extends Controller
 }
 
 
+// eyJpdiI6IlFmQlZiWENuR1dVT2VRMmxFK0cxTlE9PSIsInZhbHVlIjoiUXlIcnhZV25GRUlaa2FOUWtlNmlxQT09IiwibWFjIjoiYTlkYTA1MWZhOWIzMTYwMjU4NTFkYzY0NzRmZGQ1Y2U1NWQyM2JhZDY3ODI0MGE0ZjliNzE1NzBiMWUzYTQ2YSIsInRhZyI6IiJ9

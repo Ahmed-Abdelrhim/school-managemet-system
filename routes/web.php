@@ -477,8 +477,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
     }); // End Middleware Auth Route
 
-    Route::get('check/code', [SmsController::class, 'checkCode'])->name('check.code');
-    Route::post('verify/code', [SmsController::class, 'verifyCode'])->name('verify.code');
+    Route::get('check/code/{id}', [SmsController::class, 'checkCode'])->name('check.code');
+    Route::post('verify/code/{id}', [SmsController::class, 'verifyCode'])->name('verify.code');
     Route::get('change/password/{user_id}', [SmsController::class, 'changePassword'])->name('change.password.form');
     Route::post('change/password/To/User/{id}', [SmsController::class, 'changePasswordFromCode'])->name('change.password.from.code');
 
