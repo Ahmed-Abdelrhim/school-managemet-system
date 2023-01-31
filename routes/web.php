@@ -479,7 +479,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
     Route::get('check/code', [SmsController::class, 'checkCode'])->name('check.code');
     Route::post('verify/code', [SmsController::class, 'verifyCode'])->name('verify.code');
-    Route::post('change/password/{user_id}', [SmsController::class, 'changePassword'])->name('change.password.form');
+    Route::get('change/password/{user_id}', [SmsController::class, 'changePassword'])->name('change.password.form');
+    Route::post('change/password/To/User', [SmsController::class, 'changePasswordFromCode'])->name('change.password.from.code');
 
 });  // Prevent Back Middleware
 

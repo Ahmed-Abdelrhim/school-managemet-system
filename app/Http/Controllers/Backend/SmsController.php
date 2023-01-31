@@ -87,11 +87,13 @@ class SmsController extends Controller
 
 
         $now = Carbon::now();
-        if ($now->isBefore($verification->expires_at)) {
-            return redirect()->route('change.password.form',encrypt($verification->user_id));
+
+        if ($now->isAfter($verification->expires_at)) {
+            return redirect()->route('change.password.form', encrypt($verification->user_id));
         }
-        $now = now();
-        return Carbon::parse($now)->format('H:i:s');
+
+
+        // return Carbon::parse($now)->format('H:i:s');
 
         $notification = array(
             'message' => 'Code is not valid right now',
@@ -102,7 +104,22 @@ class SmsController extends Controller
 
     public function changePassword($user_id)
     {
-        return decrypt($user_id);
+        if (!$user_id || is_numeric($user_id)) {
+            $notification = array(
+                'message' => 'Something Went Wrong',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+        $id = decrypt($user_id);
+        return view('backend.sms.change_password', ['id' => $id]);
+    }
+
+    public function changePasswordFromCode(Request $request , $id)
+    {
+        return $id = decrypt($id);
+        return $request;
     }
 
 }

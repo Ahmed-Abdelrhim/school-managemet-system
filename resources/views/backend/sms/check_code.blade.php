@@ -4,9 +4,13 @@
             <x-jet-authentication-card-logo/>
         </x-slot>
 
-        {{--        <div class="mb-4 text-sm text-gray-600">--}}
-        {{--            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}--}}
-        {{--        </div>--}}
+
+        @if (session('alert-type'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('message') }}
+            </div>
+        @endif
+
 
         @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
@@ -33,25 +37,3 @@
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>
-<script>
-    @if(Session::has('message'))
-    var type = "{{ Session::get('alert-type','info') }}"
-    switch(type){
-        case 'info':
-            toastr.info(" {{ Session::get('message') }} ");
-            break;
-
-        case 'success':
-            toastr.success(" {{ Session::get('message') }} ");
-            break;
-
-        case 'warning':
-            toastr.warning(" {{ Session::get('message') }} ");
-            break;
-
-        case 'error':
-            toastr.error(" {{ Session::get('message') }} ");
-            break;
-    }
-    @endif
-</script>
