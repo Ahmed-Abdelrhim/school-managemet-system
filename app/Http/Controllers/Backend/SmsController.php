@@ -9,7 +9,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Vonage\Laravel\Facade\Vonage;
 use Twilio\Rest\Client;
 
 class SmsController extends Controller
@@ -19,12 +18,12 @@ class SmsController extends Controller
         return view('backend.sms.index');
     }
 
-    public function sendSms(Request $request): RedirectResponse
+    public function sendSms(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
-            'mobile_number' => 'required|regex:/(01)[0-9]{9}/|not_regex:/[a-z]/|size:11',
-            // 'mobile_number' => 'required',
+            // 'mobile_number' => 'required|regex:/(01)[0-9]{9}/|not_regex:/[a-z]/|size:11',
+            'mobile_number' => 'required',
             'msg' => 'required|string|min:4',
         ]);
 
@@ -33,8 +32,10 @@ class SmsController extends Controller
 
         $receiverNumber = '+20 ';
         $mobile = $request->get('mobile_number');
-        if (str_starts_with($mobile, '0'))
-            $mobile = str_replace('0', '', $mobile);
+        if (str_starts_with($mobile, '0')) {
+            // $mobile = str_replace($mobile[0], '', $mobile );
+            $mobile = substr($mobile, 1);
+        }
 
         $receiverNumber .= $mobile;
         $message = $request->get('msg');
@@ -42,9 +43,10 @@ class SmsController extends Controller
         try {
             $account_sid = getenv("TWILIO_SID");
             $auth_token = getenv("TWILIO_TOKEN");
-            $twilio_number = getenv("TWILIO_FROM");
+            // $twilio_number = getenv("TWILIO_FROM");
+            $twilio_number = '+16067332573';
 
-            $client = new Client($account_sid, $auth_token);
+            $client = new Client('ACca4d87b5d781f19f73128cee7bfae176', 'e03c9c76a5c166552baf4224f2b90e9b');
             $client->messages->create($receiverNumber, [
                 'from' => $twilio_number,
                 'body' => $message
@@ -57,7 +59,7 @@ class SmsController extends Controller
             return redirect()->back()->with($notification);
         } catch (\Exception $e) {
             $notification = array(
-                'message' => 'Sms Sent Successfully',
+                'message' => 'Something Went Wrong try again!',
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
