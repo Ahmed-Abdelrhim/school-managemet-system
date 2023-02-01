@@ -168,14 +168,14 @@ class SmsController extends Controller
         return redirect()->route('dashboard');
     }
 
-    //    public function play()
-    //    {
-    //        $user = User::query()->find(1);
-    //        Auth::login($user);
-    //        return redirect()->route('dashboard');
-    //    }
+        public function play()
+        {
+            return 'play';
+        //            $user = User::query()->find(1);
+        //            Auth::login($user);
+        //            return redirect()->route('dashboard');
+        }
 
 }
-
 
 // eyJpdiI6IlFmQlZiWENuR1dVT2VRMmxFK0cxTlE9PSIsInZhbHVlIjoiUXlIcnhZV25GRUlaa2FOUWtlNmlxQT09IiwibWFjIjoiYTlkYTA1MWZhOWIzMTYwMjU4NTFkYzY0NzRmZGQ1Y2U1NWQyM2JhZDY3ODI0MGE0ZjliNzE1NzBiMWUzYTQ2YSIsInRhZyI6IiJ9
