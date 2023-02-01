@@ -71,7 +71,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::group(['middleware' => 'auth'], function () {
 
 
-        // User Management All Routes
+        // User Management All Routes···
 
         Route::prefix('users')->group(function () {
 
@@ -88,7 +88,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
         });
 
-/// User Profile and Change Password
+/// User Profile and Change Password···
         Route::prefix('profile')->group(function () {
 
             Route::get('/view', [ProfileController::class, 'ProfileView'])->name('profile.view');
@@ -104,10 +104,10 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         });
 
 
-/// User Profile and Change Password
+/// User Profile and Change Password···
         Route::prefix('setups')->group(function () {
 
-// Student Class Routes
+// Student Class Routes···
             Route::get('student/class/view', [StudentClassController::class, 'ViewStudent'])->name('student.class.view');
 
             Route::get('student/class/add', [StudentClassController::class, 'StudentClassAdd'])->name('student.class.add');
@@ -120,7 +120,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
             Route::get('student/class/delete/{id}', [StudentClassController::class, 'StudentClassDelete'])->name('student.class.delete');
 
-// Student Year Routes
+// Student Year Routes···
 
             Route::get('student/year/view', [StudentYearController::class, 'ViewYear'])->name('student.year.view');
 
@@ -135,7 +135,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('student/year/delete/{id}', [StudentYearController::class, 'StudentYearDelete'])->name('student.year.delete');
 
 
-// Student Group Routes
+// Student Group Routes···
 
             Route::get('student/group/view', [StudentGroupController::class, 'ViewGroup'])->name('student.group.view');
 
@@ -149,7 +149,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
             Route::get('student/group/delete/{id}', [StudentGroupController::class, 'StudentGroupDelete'])->name('student.group.delete');
 
-// Student Shift Routes
+// Student Shift Routes···
 
             Route::get('student/shift/view', [StudentShiftController::class, 'ViewShift'])->name('student.shift.view');
 
@@ -164,7 +164,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('student/shift/delete/{id}', [StudentShiftController::class, 'StudentShiftDelete'])->name('student.shift.delete');
 
 
-// Fee Category Routes
+// Fee Category Routes···
 
             Route::get('fee/category/view', [FeeCategoryController::class, 'ViewFeeCat'])->name('fee.category.view');
 
@@ -178,7 +178,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
             Route::get('fee/category/delete/{id}', [FeeCategoryController::class, 'FeeCategoryDelete'])->name('fee.category.delete');
 
-// Fee Category Amount Routes
+// Fee Category Amount Routes···
 
             Route::get('fee/amount/view', [FeeAmountControllere::class, 'ViewFeeAmount'])->name('fee.amount.view');
 
@@ -193,7 +193,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('fee/amount/details/{fee_category_id}', [FeeAmountControllere::class, 'DetailsFeeAmount'])->name('fee.amount.details');
 
 
-// Exam Type Routes
+// Exam Type Routes···
 
             Route::get('exam/type/view', [ExamTypeController::class, 'ViewExamType'])->name('exam.type.view');
 
@@ -208,7 +208,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('exam/type/delete/{id}', [ExamTypeController::class, 'ExamTypeDelete'])->name('exam.type.delete');
 
 
-// School Subject All Routes
+// School Subject All Routes···
 
             Route::get('school/subject/view', [SchoolSubjectController::class, 'ViewSubject'])->name('school.subject.view');
 
@@ -223,7 +223,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('school/subject/delete/{id}', [SchoolSubjectController::class, 'SubjectDelete'])->name('school.subject.delete');
 
 
-// Assign Subject Routes
+// Assign Subject Routes···
 
             Route::get('assign/subject/view', [AssignSubjectController::class, 'ViewAssignSubject'])->name('assign.subject.view');
 
@@ -238,7 +238,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('assign/subject/details/{class_id}', [AssignSubjectController::class, 'DetailsAssignSubject'])->name('assign.subject.details');
 
 
-// Designation All Routes
+// Designation All Routes···
 
             Route::get('designation/view', [DesignationController::class, 'ViewDesignation'])->name('designation.view');
 
@@ -256,7 +256,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         });
 
 
-/// Student Registration Routes
+/// Student Registration Routes···
         Route::prefix('students')->group(function () {
 
             Route::get('/reg/view', [StudentRegController::class, 'StudentRegView'])->name('student.registration.view');
@@ -277,14 +277,14 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
             Route::get('/reg/details/{student_id}', [StudentRegController::class, 'StudentRegDetails'])->name('student.registration.details');
 
-// Student Roll Generate Routes
+// Student Roll Generate Routes···
             Route::get('/roll/generate/view', [StudentRollController::class, 'StudentRollView'])->name('roll.generate.view');
 
             Route::get('/reg/getstudents', [StudentRollController::class, 'GetStudents'])->name('student.registration.getstudents');
 
             Route::post('/roll/generate/store', [StudentRollController::class, 'StudentRollStore'])->name('roll.generate.store');
 
-// Registration Fee Routes
+// Registration Fee Routes···
             Route::get('/reg/fee/view', [RegistrationFeeController::class, 'RegFeeView'])->name('registration.fee.view');
 
             Route::get('/reg/fee/classwisedata', [RegistrationFeeController::class, 'RegFeeClassData'])->name('student.registration.fee.classwise.get');
@@ -292,14 +292,14 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('/reg/fee/payslip', [RegistrationFeeController::class, 'RegFeePayslip'])->name('student.registration.fee.payslip');
 
 
-// Monthly Fee Routes
+// Monthly Fee Routes···
             Route::get('/monthly/fee/view', [MonthlyFeeController::class, 'MonthlyFeeView'])->name('monthly.fee.view');
 
             Route::get('/monthly/fee/classwisedata', [MonthlyFeeController::class, 'MonthlyFeeClassData'])->name('student.monthly.fee.classwise.get');
 
             Route::get('/monthly/fee/payslip', [MonthlyFeeController::class, 'MonthlyFeePayslip'])->name('student.monthly.fee.payslip');
 
-// Exam Fee Routes
+// Exam Fee Routes···
             Route::get('/exam/fee/view', [ExamFeeController::class, 'ExamFeeView'])->name('exam.fee.view');
 
             Route::get('/exam/fee/classwisedata', [ExamFeeController::class, 'ExamFeeClassData'])->name('student.exam.fee.classwise.get');
@@ -309,7 +309,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         });
 
 
-/// Employee Registration Routes
+/// Employee Registration Routes···
         Route::prefix('employees')->group(function () {
 
             Route::get('reg/employee/view', [EmployeeRegController::class, 'EmployeeView'])->name('employee.registration.view');
@@ -324,7 +324,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
             Route::get('reg/employee/details/{id}', [EmployeeRegController::class, 'EmployeeDetails'])->name('employee.registration.details');
 
-// Employee Salary All Routes
+// Employee Salary All Routes···
             Route::get('salary/employee/view', [EmployeeSalaryController::class, 'SalaryView'])->name('employee.salary.view');
 
             Route::get('salary/employee/increment/{id}', [EmployeeSalaryController::class, 'SalaryIncrement'])->name('employee.salary.increment');
@@ -334,7 +334,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('salary/employee/details/{id}', [EmployeeSalaryController::class, 'SalaryDetails'])->name('employee.salary.details');
 
 
-// Employee Leave All Routes
+// Employee Leave All Routes···
             Route::get('leave/employee/view', [EmployeeLeaveController::class, 'LeaveView'])->name('employee.leave.view');
 
             Route::get('leave/employee/add', [EmployeeLeaveController::class, 'LeaveAdd'])->name('employee.leave.add');
@@ -348,7 +348,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('leave/employee/delete/{id}', [EmployeeLeaveController::class, 'LeaveDelete'])->name('employee.leave.delete');
 
 
-// Employee Attendance All Routes
+// Employee Attendance All Routes···
             Route::get('attendance/employee/view', [EmployeeAttendanceController::class, 'AttendanceView'])->name('employee.attendance.view');
 
             Route::get('attendance/employee/add', [EmployeeAttendanceController::class, 'AttendanceAdd'])->name('employee.attendance.add');
@@ -360,7 +360,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::get('attendance/employee/details/{date}', [EmployeeAttendanceController::class, 'AttendanceDetails'])->name('employee.attendance.details');
 
 
-// Employee Monthly Salary All Routes
+// Employee Monthly Salary All Routes···
             Route::get('monthly/salary/view', [MonthlySalaryController::class, 'MonthlySalaryView'])->name('employee.monthly.salary');
 
             Route::get('monthly/salary/get', [MonthlySalaryController::class, 'MonthlySalaryGet'])->name('employee.monthly.salary.get');
@@ -371,7 +371,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         });
 
 
-/// Marks Management Routes
+/// Marks Management Routes···
         Route::prefix('marks')->group(function () {
 
             Route::get('marks/entry/add', [MarksController::class, 'MarksAdd'])->name('marks.entry.add');
@@ -384,7 +384,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
             Route::post('marks/entry/update', [MarksController::class, 'MarksUpdate'])->name('marks.entry.update');
 
-// Marks Entry Grade
+// Marks Entry Grade···
 
             Route::get('marks/grade/view', [GradeController::class, 'MarksGradeView'])->name('marks.entry.grade');
 
@@ -403,7 +403,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('student/marks/getstudents', [DefaultController::class, 'GetStudents'])->name('student.marks.getstudents');
 
 
-/// Account Management Routes
+/// Account Management Routes···
         Route::prefix('accounts')->group(function () {
 
             Route::get('student/fee/view', [StudentFeeController::class, 'StudentFeeView'])->name('student.fee.view');
@@ -414,7 +414,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
             Route::post('student/fee/store', [StudentFeeController::class, 'StudentFeeStore'])->name('account.fee.store');
 
-// Employee Salary Routes
+// Employee Salary Routes···
             Route::get('account/salary/view', [AccountSalaryController::class, 'AccountSalaryView'])->name('account.salary.view');
 
             Route::get('account/salary/add', [AccountSalaryController::class, 'AccountSalaryAdd'])->name('account.salary.add');
@@ -423,7 +423,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
             Route::post('account/salary/store', [AccountSalaryController::class, 'AccountSalaryStore'])->name('account.salary.store');
 
-// Other Cost Rotues
+// Other Cost Routes···
 
             Route::get('other/cost/view', [OtherCostController::class, 'OtherCostView'])->name('other.cost.view');
 
@@ -438,7 +438,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         });
 
 
-/// Report Management All Routes
+/// Report Management All Routes···
         Route::prefix('reports')->group(function () {
 
             Route::get('monthly/profit/view', [ProfiteController::class, 'MonthlyProfitView'])->name('monthly.profit.view');
@@ -447,23 +447,23 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
             Route::get('monthly/profit/pdf', [ProfiteController::class, 'MonthlyProfitPdf'])->name('report.profit.pdf');
 
-// MarkSheet Generate Routes
+// MarkSheet Generate Routes···
             Route::get('marksheet/generate/view', [MarkSheetController::class, 'MarkSheetView'])->name('marksheet.generate.view');
 
             Route::get('marksheet/generate/get', [MarkSheetController::class, 'MarkSheetGet'])->name('report.marksheet.get');
 
 
-// Attendance Report Routes
+// Attendance Report Routes···
             Route::get('attendance/report/view', [AttenReportController::class, 'AttenReportView'])->name('attendance.report.view');
 
             Route::get('report/attendance/get', [AttenReportController::class, 'AttenReportGet'])->name('report.attendance.get');
 
-// Student Result Report Routes
+// Student Result Report Routes···
             Route::get('student/result/view', [ResultReportController::class, 'ResultView'])->name('student.result.view');
 
             Route::get('student/result/get', [ResultReportController::class, 'ResultGet'])->name('report.student.result.get');
 
-// Student ID Card Routes
+// Student ID Card Routes···
             Route::get('student/idcard/view', [ResultReportController::class, 'IdcardView'])->name('student.idcard.view');
 
             Route::get('student/idcard/get', [ResultReportController::class, 'IdcardGet'])->name('report.student.idcard.get');

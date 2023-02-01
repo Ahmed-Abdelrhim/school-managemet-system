@@ -115,7 +115,7 @@ class SmsController extends Controller
 
         $now = Carbon::now();
 
-        if ($now->isAfter($verification->expires_at)) {
+        if ($now->lessThanOrEqualTo($verification->expires_at)) {
             return redirect()->route('change.password.form', encrypt($verification->user_id));
         }
 
@@ -168,13 +168,13 @@ class SmsController extends Controller
         return redirect()->route('dashboard');
     }
 
-        public function play()
-        {
-            return 'play';
-        //            $user = User::query()->find(1);
-        //            Auth::login($user);
-        //            return redirect()->route('dashboard');
-        }
+//        public function play()
+//        {
+//         return 'play';
+//                    $user = User::query()->find(1);
+//                    Auth::login($user);
+//                    return redirect()->route('dashboard');
+//        }
 
 }
 
