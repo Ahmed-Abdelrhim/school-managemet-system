@@ -181,10 +181,6 @@ class SmsController extends Controller
 
         $string = false;
         $blogPost = Http::withToken($toke)->get($uri);
-        if ($blogPost->failed()) {
-            $string = true;
-            // return 'BlogPost Not Found';
-        }
 
 
         if ($blogPost->json()['status'] == 400)
