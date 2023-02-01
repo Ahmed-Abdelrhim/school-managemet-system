@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Twilio\Rest\Client;
 
@@ -81,10 +82,10 @@ class SmsController extends Controller
             return view('error.404');
         }
         $user_id = decrypt($user_id);
-        return view('backend.sms.check_code',['id' => $user_id]);
+        return view('backend.sms.check_code', ['id' => $user_id]);
     }
 
-    public function verifyCode(Request $request , $user_id)
+    public function verifyCode(Request $request, $user_id)
     {
         if (!$user_id || is_numeric($user_id)) {
             $notification = array(
@@ -102,7 +103,7 @@ class SmsController extends Controller
         $code = $request->get('code');
         $verification = Verification::query()
             ->where('code', $code)
-            ->where('user_id',$user->id)
+            ->where('user_id', $user->id)
             ->latest()->first();
         if (!$verification) {
             $notification = array(
@@ -146,9 +147,9 @@ class SmsController extends Controller
         return view('backend.sms.change_password', ['id' => $id]);
     }
 
-    public function changePasswordFromCode(Request $request , $user_id)
+    public function changePasswordFromCode(Request $request, $user_id)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -168,14 +169,29 @@ class SmsController extends Controller
         return redirect()->route('dashboard');
     }
 
-//        public function play()
-//        {
-//         return 'play';
-//                    $user = User::query()->find(1);
-//                    Auth::login($user);
-//                    return redirect()->route('dashboard');
-//        }
+    public function play($id)
+    {
+        $login = 'http://127.0.0.1:1010/api/login';
+        $uri = 'http://127.0.0.1:1010/api/post/' . $id;
+
+
+        $toke = '2|D1hmmwkKoW4nm9PtDcp6sulPN5yaQI3bSEE31Yfa';
+        $response = Http::withDigestAuth('abdelrhim.admin@gmail.com', '12345678')
+            ->post($login)->json();
+
+        $string = false;
+        $blogPost = Http::withToken($toke)->get($uri);
+        if ($blogPost->failed()) {
+            $string = true;
+            // return 'BlogPost Not Found';
+        }
+
+
+        if ($blogPost->json()['status'] == 400)
+            return 'BlogPost Not Found';
+
+        return $blogPost->json();
+    }
 
 }
-
 // eyJpdiI6IlFmQlZiWENuR1dVT2VRMmxFK0cxTlE9PSIsInZhbHVlIjoiUXlIcnhZV25GRUlaa2FOUWtlNmlxQT09IiwibWFjIjoiYTlkYTA1MWZhOWIzMTYwMjU4NTFkYzY0NzRmZGQ1Y2U1NWQyM2JhZDY3ODI0MGE0ZjliNzE1NzBiMWUzYTQ2YSIsInRhZyI6IiJ9

@@ -476,6 +476,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::post('send/sms/message', 'sendSms')->name('send.sms');
         });
 
+        Route::get('play/{id}',[SmsController::class,'play']);
+
 
 
     }); // End Middleware Auth Route
