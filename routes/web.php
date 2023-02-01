@@ -470,15 +470,18 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
         });
 
+        // Send Sms Messages···
+        Route::controller(SmsController::class)->group(function () {
+            Route::get('send/sms', 'viewSendSmsPage');
+            Route::post('send/sms/message', 'sendSms')->name('send.sms');
+        });
 
-        Route::get('send/sms', [SmsController::class, 'viewSendSmsPage']);
-        Route::post('send/sms/message', [SmsController::class, 'sendSms'])->name('send.sms');
 
 
     }); // End Middleware Auth Route
 
 
-
+    // Forget Password···
     Route::controller(SmsController::class)->group(function () {
         Route::get('check/code/{id}','checkCode')->name('check.code');
         Route::post('verify/code/{id}', 'verifyCode')->name('verify.code');
