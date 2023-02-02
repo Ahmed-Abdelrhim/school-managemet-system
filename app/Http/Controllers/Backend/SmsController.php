@@ -169,7 +169,7 @@ class SmsController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function play($id = null)
+    public function play($id = null , $user_id = null)
     {
         $atef_token = '2|IWKLlmxMWVwwfanZdhRYezZbig8wzyoDtiZtFkm2';
         // $toke = '2|D1hmmwkKoW4nm9PtDcp6sulPN5yaQI3bSEE31Yfa';
@@ -181,6 +181,7 @@ class SmsController extends Controller
         $atef_register_user = 'http://127.0.0.1:1070/api/register';
         $atef_login_user = 'http://127.0.0.1:1070/api/login';
         $atef_get_psa = 'http://127.0.0.1:1070/api/get/psa/'.$id;
+        $atef_set_psa = 'http://127.0.0.1:1070/api/set/psa';
 
         //        $register = Http::withHeaders([
         //            'Authorization' => 'application/json',
@@ -197,10 +198,22 @@ class SmsController extends Controller
 
 
 
+
         // get psa ···
         // $get_psa_result = Http::withToken($atef_token)->get($atef_get_psa);
         // return $get_psa_result->json();
 
+        // set psa ···
+        $set_psa = Http::withToken($atef_token)->post($atef_set_psa,[
+            'user_id' => 2,
+            'psa_result' => 1,
+        ]);
+
+        // https://jsonplaceholder.typicode.com/posts/1
+
+
+
+        return $set_psa->json();
 
 
 
