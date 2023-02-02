@@ -180,6 +180,7 @@ class SmsController extends Controller
 
         $atef_register_user = 'http://127.0.0.1:1070/api/register';
         $atef_login_user = 'http://127.0.0.1:1070/api/login';
+        $atef_get_psa = 'http://127.0.0.1:1070/api/get/psa/'.$id;
 
         //        $register = Http::withHeaders([
         //            'Authorization' => 'application/json',
@@ -188,17 +189,19 @@ class SmsController extends Controller
         //            '' => '',
         //        ]);
 
-        $login = Http::post($atef_login_user,[
-            'email' => 'abdelrhim.user@gmail.com',
-            'password' => '12345678',
-        ]);
-
-        return $login->json();
-
+        //        $login = Http::post($atef_login_user,[
+        //            'email' => 'abdelrhim.user@gmail.com',
+        //            'password' => '12345678',
+        //        ]);
+        // return $login->json();
 
 
-        //        $response = Http::withDigestAuth('abdelrhim.admin@gmail.com', '12345678')
-        //            ->post($login)->json();
+
+        // get psa ···
+        // $get_psa_result = Http::withToken($atef_token)->get($atef_get_psa);
+        // return $get_psa_result->json();
+
+
 
 
         //        $store_post = Http::withToken($toke)->post($create_post,[
