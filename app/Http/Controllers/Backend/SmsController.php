@@ -169,28 +169,47 @@ class SmsController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function play( $id = null )
+    public function play($id = null)
     {
+        $atef_token = '2|IWKLlmxMWVwwfanZdhRYezZbig8wzyoDtiZtFkm2';
+        // $toke = '2|D1hmmwkKoW4nm9PtDcp6sulPN5yaQI3bSEE31Yfa';
+
         $login = 'http://127.0.0.1:1010/api/login';
         $uri = 'http://127.0.0.1:1010/api/post/' . $id;
         $create_post = 'http://127.0.0.1:1010/api/store/post';
 
+        $atef_register_user = 'http://127.0.0.1:1070/api/register';
+        $atef_login_user = 'http://127.0.0.1:1070/api/login';
+
+        //        $register = Http::withHeaders([
+        //            'Authorization' => 'application/json',
+        //            'Content-Type' => 'application/json',
+        //        ])->post($atef_register_user, [
+        //            '' => '',
+        //        ]);
+
+        $login = Http::post($atef_login_user,[
+            'email' => 'abdelrhim.user@gmail.com',
+            'password' => '12345678',
+        ]);
+
+        return $login->json();
 
 
-        $toke = '2|D1hmmwkKoW4nm9PtDcp6sulPN5yaQI3bSEE31Yfa';
+
         //        $response = Http::withDigestAuth('abdelrhim.admin@gmail.com', '12345678')
         //            ->post($login)->json();
 
 
-        $store_post = Http::withToken($toke)->post($create_post,[
-            'author_id' => 11,
-            'title' => 'Title From School Management System',
-            'content' => 'Content From School Management System',
-        ]);
-
-        if ($store_post->json()['status'] == 400)
-            return 'Something went wrong';
-        return $store_post->json();
+        //        $store_post = Http::withToken($toke)->post($create_post,[
+        //            'author_id' => 11,
+        //            'title' => 'Title From School Management System',
+        //            'content' => 'Content From School Management System',
+        //        ]);
+        //
+        //        if ($store_post->json()['status'] == 400)
+        //            return 'Something went wrong';
+        //        return $store_post->json();
 
         //        $string = false;
         //        $blogPost = Http::withToken($toke)->get($uri);
