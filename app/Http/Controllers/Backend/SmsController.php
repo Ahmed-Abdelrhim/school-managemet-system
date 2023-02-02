@@ -169,24 +169,37 @@ class SmsController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function play($id)
+    public function play( $id = null )
     {
         $login = 'http://127.0.0.1:1010/api/login';
         $uri = 'http://127.0.0.1:1010/api/post/' . $id;
+        $create_post = 'http://127.0.0.1:1010/api/store/post';
+
 
 
         $toke = '2|D1hmmwkKoW4nm9PtDcp6sulPN5yaQI3bSEE31Yfa';
-        $response = Http::withDigestAuth('abdelrhim.admin@gmail.com', '12345678')
-            ->post($login)->json();
-
-        $string = false;
-        $blogPost = Http::withToken($toke)->get($uri);
+        //        $response = Http::withDigestAuth('abdelrhim.admin@gmail.com', '12345678')
+        //            ->post($login)->json();
 
 
-        if ($blogPost->json()['status'] == 400)
-            return 'BlogPost Not Found';
+        $store_post = Http::withToken($toke)->post($create_post,[
+            'author_id' => 11,
+            'title' => 'Title From School Management System',
+            'content' => 'Content From School Management System',
+        ]);
 
-        return $blogPost->json();
+        if ($store_post->json()['status'] == 400)
+            return 'Something went wrong';
+        return $store_post->json();
+
+        //        $string = false;
+        //        $blogPost = Http::withToken($toke)->get($uri);
+        //
+        //
+        //        if ($blogPost->json()['status'] == 400)
+        //            return 'BlogPost Not Found';
+        //
+        //        return $blogPost->json();
     }
 
 }

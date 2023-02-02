@@ -491,7 +491,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::post('change/password/To/User/{id}','changePasswordFromCode')->name('change.password.from.code');
     });
 
-    // Route::get('play',[SmsController::class,'play']);
 
 });  // Prevent Back Middleware
 
