@@ -28,6 +28,7 @@ class UserController extends Controller
 
     public function UserStore(Request $request)
     {
+//        return $request;
         if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
             return view('errors.403');
 
@@ -50,8 +51,12 @@ class UserController extends Controller
             'message' => 'User Inserted Successfully',
             'alert-type' => 'success'
         );
+        return response()->json([
+            'status' => true,
+            // 'msg' => 'تم الحفظ بنجاح',
+        ]);
 
-        return redirect()->route('user.view')->with($notification);
+        // return redirect()->route('user.view')->with($notification);
 
     }
 
