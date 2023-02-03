@@ -37,7 +37,7 @@ class UserFactory extends Factory
             'gender' => $genders[$this->faker->numberBetween(0,1)],
             'image' => '202301291300myPic-1.jpg',
             'religion' => $religions[$this->faker->numberBetween(0,3)],
-            'dob' => $this->faker->dateTimeBetween('1970-01-01', '2012-12-31')->format('d/m/Y'),
+            'dob' => $this->faker->dateTimeBetween('1970-01-01', '2012-12-31'),
             'role' => 'Operator',
             'created_at' => Carbon::now(),
         ];

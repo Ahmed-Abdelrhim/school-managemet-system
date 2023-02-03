@@ -13,11 +13,10 @@ class UserController extends Controller
 {
     public function UserView()
     {
-
         if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
             return view('errors.403');
-        $allData = User::all();
-        $data['allData'] = User::query()->where('usertype', 'Admin')->get();
+        // $allData = User::all();
+        $data['allData'] = User::query()->where('usertype', 'Admin')->select(['id','role','name','email','code'])->get();
         return view('backend.user.view_user', $data);
 
     }
@@ -31,7 +30,6 @@ class UserController extends Controller
 
     public function UserStore(Request $request)
     {
-//        return $request;
         if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
             return view('errors.403');
 
