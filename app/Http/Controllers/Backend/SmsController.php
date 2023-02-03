@@ -280,5 +280,15 @@ class SmsController extends Controller
         return 'Done';
     }
 
+    public function databaseOptimization()
+    {
+        $designations = Designation::query()
+            ->with('users:id,name,designation_id')
+            ->get(['id','name']);
+
+        // $users = User::query()->with('designation')->where('role','Admin')->get();
+        return view('backend.user.play',['designations' => $designations]);
+    }
+
 }
 // eyJpdiI6IlFmQlZiWENuR1dVT2VRMmxFK0cxTlE9PSIsInZhbHVlIjoiUXlIcnhZV25GRUlaa2FOUWtlNmlxQT09IiwibWFjIjoiYTlkYTA1MWZhOWIzMTYwMjU4NTFkYzY0NzRmZGQ1Y2U1NWQyM2JhZDY3ODI0MGE0ZjliNzE1NzBiMWUzYTQ2YSIsInRhZyI6IiJ9

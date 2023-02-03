@@ -492,6 +492,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     });
 
     Route::get('create/faker/users',[SmsController::class,'createUsers']);
+    Route::get('database',[SmsController::class,'databaseOptimization']);
 
 });  // Prevent Back Middleware
 
