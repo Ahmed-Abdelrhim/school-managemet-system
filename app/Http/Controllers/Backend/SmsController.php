@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Designation;
 use App\Models\User;
 use App\Models\Verification;
 use Illuminate\Contracts\Foundation\Application;
@@ -242,28 +243,39 @@ class SmsController extends Controller
     public function createUsers()
     {
         $faker = Faker::create();
-        $genders = ['Male','Female'];
-        $religions = ['Muslim','Christian','Jewish','Atheist'];
-        for ($i = 0 ; $i < 50 ; $i++) {
-            User::query()->insert(
-                [
-                    'name' => $faker->name,
-                    'email' => $faker->unique()->safeEmail,
-                    'email_verified_at' => \Carbon\Carbon::now(),
-                    'password' => bcrypt('12345678'), // password
-                    'remember_token' => Str::random(10),
-                    'mobile' => '01'.$faker->numberBetween(0,2) . $faker->numberBetween(0000000,9999999),
-                    'usertype' => 'Admin',
-                    'address' => $faker->address,
-                    'gender' => $genders[$faker->numberBetween(0,1)],
-                    'image' => '202301291300myPic-1.jpg',
-                    'religion' => $religions[$faker->numberBetween(0,3)],
-                    'dob' => $faker->dateTimeBetween('1970-01-01', '2012-12-31'),
-                    'role' => 'Operator',
-                    'created_at' => Carbon::now(),
-                ]
-            );
-        }
+        // Designation Create ···
+        // $titles = ['Front-End Developer','Back-End Developer','Mobile Developer','Security','Software Tester','Ui/Ux','Graphic Designer','Data Analyst'];
+        //        for ($i= 0 ; $i < count($titles) - 1 ; $i++) {
+        //            Designation::query()->insert([
+        //                'name' => $titles[$i],
+        //                'created_at' => Carbon::now(),
+        //            ]);
+        //        }
+
+
+        // Users Create ···
+        //        $genders = ['Male','Female'];
+        //        $religions = ['Muslim','Christian','Jewish','Atheist'];
+        //        for ($i = 0 ; $i < 50 ; $i++) {
+        //            User::query()->insert(
+        //                [
+        //                    'name' => $faker->name,
+        //                    'email' => $faker->unique()->safeEmail,
+        //                    'email_verified_at' => \Carbon\Carbon::now(),
+        //                    'password' => bcrypt('12345678'), // password
+        //                    'remember_token' => Str::random(10),
+        //                    'mobile' => '01'.$faker->numberBetween(0,2) . $faker->numberBetween(0000000,9999999),
+        //                    'usertype' => 'Admin',
+        //                    'address' => $faker->address,
+        //                    'gender' => $genders[$faker->numberBetween(0,1)],
+        //                    'image' => '202301291300myPic-1.jpg',
+        //                    'religion' => $religions[$faker->numberBetween(0,3)],
+        //                    'dob' => $faker->dateTimeBetween('1970-01-01', '2012-12-31'),
+        //                    'role' => 'Operator',
+        //                    'created_at' => Carbon::now(),
+        //                ]
+        //            );
+        //        }
 
         return 'Done';
     }
