@@ -51,7 +51,7 @@ class UserController extends Controller
 
         try {
             DB::beginTransaction();
-            $user = User::query()->create([
+            $user = User::query()->insert([
                 'name' => $request->name,
                 'email' => $request->email,
                 'role' => $request->role,
