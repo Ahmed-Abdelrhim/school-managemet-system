@@ -129,6 +129,7 @@
                 contentType: false,
                 cache: false,
                 success: function (data) {
+                    console.log( ' Status => ' + data.status);
                     if (data.status == true) {
                         // $('#success_msg').show();
                         toastr.success("User Created Successfully");
@@ -137,12 +138,27 @@
                         $('#email').val('');
 
                     }
-                }, error: function (reject) {
-                    var response = $.parseJSON(reject.responseText);
-                    $.each(response.errors, function (key, val) {
-                        $("#" + key + "_error").text(val[0]);
-                    });
                 }
+                // , error: function (reject) {
+                //     var response = $.parseJSON(reject.responseText);
+                //     $.each(response.errors, function (key, val) {
+                //         $("#" + key + "_error").text(val[0]);
+                //     });
+                // }
+                , error : function (reject) {
+                    var response = $.parseJSON(reject.responseText);
+                    $.each(response.errors , function(key , value) {
+                        $('#'+key+'_error').text(value[0]);
+                    })
+
+                    // var response = $.parseJSON(reject.responseText);
+                    // $.each(response.errors , function(key , value) {
+                    //     $('#'+key+'_error').text(value);
+                    // });
+                    // console.log(response);
+                    // console.log(reject)
+                },
+
             });
         });
     </script>

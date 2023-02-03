@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -33,28 +36,44 @@ class UserController extends Controller
             return view('errors.403');
 
         $validatedData = $request->validate([
-            'email' => 'required|unique:users',
+            'email' => 'required|unique:users,email',
             'name' => 'required',
         ]);
 
-        $data = new User();
-        $code = rand(0000, 9999);
-        $data->usertype = 'Admin';
-        $data->role = $request->role;
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->password = bcrypt($code);
-        $data->code = $code;
-        $data->save();
+//        $data = new User();
+//        $code = rand(0000, 9999);
+//        $data->usertype = 'Admin';
+//        $data->role = $request->role;
+//        $data->name = $request->name;
+//        $data->email = $request->email;
+//        $data->password = bcrypt($code);
+//        $data->code = $code;
+//        $data->save();
 
-        $notification = array(
-            'message' => 'User Inserted Successfully',
-            'alert-type' => 'success'
-        );
-        return response()->json([
-            'status' => true,
-            // 'msg' => 'تم الحفظ بنجاح',
-        ]);
+
+        try {
+            DB::beginTransaction();
+            $user = User::query()->create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role,
+                'usertype' => 'Admin',
+                'password' => bcrypt('12345678'),
+                'code' => Str::random(0000, 9999),
+                'gender' => 'Male',
+                'created_at' => Carbon::now(),
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['status' => false]);
+        }
+        return response()->json(['status' => true,]);
+        //        $notification = array(
+        //            'message' => 'User Inserted Successfully',
+        //            'alert-type' => 'success'
+        //        );
+
 
         // return redirect()->route('user.view')->with($notification);
 
