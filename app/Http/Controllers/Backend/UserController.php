@@ -80,6 +80,7 @@ class UserController extends Controller
 
     public function UserEdit($id)
     {
+        $id = decrypt($id);
         if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
             return view('errors.403');
 

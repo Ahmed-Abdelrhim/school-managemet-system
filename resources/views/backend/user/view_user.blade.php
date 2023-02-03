@@ -44,7 +44,7 @@
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->code }}</td>
                                                 <td>
-                                                    <a href="{{ route('users.edit',$user->id) }}" class="btn btn-info">Edit</a>
+                                                    <a href="{{ route('users.edit',encrypt($user->id)) }}" class="btn btn-info">Edit</a>
                                                     {{--   <a href="#" data-toggle="modal"--}}
                                                     {{-- data-target="#editStudent{{$user->id}}"--}}
                                                     {{-- class="btn btn-info">Edit</a>--}}
