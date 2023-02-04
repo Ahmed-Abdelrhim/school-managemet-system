@@ -79,8 +79,8 @@ class ForgetPasswordController extends Controller
             return view('backend.sms.change_password',['user_email'=> $user_email]);
         }
 
-        $notification = ['message' => 'Get code and verify it first' ,'alert-type'=>'info'];
-        return redirect()->back();
+        $notification = ['message' => 'You have to get code first' ,'alert-type'=>'info'];
+        return redirect()->route('password.request')->with($notification);
     }
 
     public function storeUserForgottenPassword(Request $request,$user_email)
@@ -107,7 +107,7 @@ class ForgetPasswordController extends Controller
         $user->password = bcrypt($request->get('password'));
         $user->save();
         $user = User::query()->where('email',$user_email)->first();
-        auth()->login($user);
+        Auth::login($user);
         return redirect()->route('dashboard');
     }
 }
