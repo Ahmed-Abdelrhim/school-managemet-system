@@ -105,8 +105,8 @@ class ForgetPasswordController extends Controller
 
         $user->password = bcrypt($request->get('password'));
         $user->save();
-        $user = User::query()->where('email',$user_email)->first();
-        Auth::login($user);
+        $user_after_updating_password = User::query()->where('email',$user_email)->first();
+        Auth::login($user_after_updating_password);
         return redirect()->route('dashboard');
     }
 }
