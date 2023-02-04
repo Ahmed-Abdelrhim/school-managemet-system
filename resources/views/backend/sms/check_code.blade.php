@@ -20,7 +20,7 @@
 
         <x-jet-validation-errors class="mb-4"/>
 
-        <form method="POST" action="{{ route('verify.code',encrypt($id)) }}">
+        <form method="POST" action="{{ route('verify.user.forget.password.code',encrypt($email)) }}">
             @csrf
 
             <div class="block">
