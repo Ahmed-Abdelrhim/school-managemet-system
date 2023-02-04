@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BackEnd\ForgetPasswordController;
 use App\Http\Controllers\Backend\SmsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -493,6 +494,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
     Route::get('create/faker/users',[SmsController::class,'createUsers']);
     Route::get('database',[SmsController::class,'databaseOptimization']);
+
+    Route::get('method/play',[ResultReportController::class,'methodPlay']);
+    Route::get('Check/User/verificationCode',[ForgetPasswordController::class,'viewCheckCodeForm'])->name('code.check.page');
 
 });  // Prevent Back Middleware
 
