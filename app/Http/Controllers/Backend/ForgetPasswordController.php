@@ -73,7 +73,7 @@ class ForgetPasswordController extends Controller
             ->where('user_id',$user->id)
             ->latest()
             ->first();
-        if ($codeRaw->is_valid == 1) {
+        if ($codeRaw && $codeRaw->is_valid == 1) {
             $codeRaw->is_valid = 0;
             $codeRaw->save();
             return view('backend.sms.change_password',['user_email'=> $user_email]);
