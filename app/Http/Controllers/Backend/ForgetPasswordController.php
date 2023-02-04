@@ -101,7 +101,6 @@ class ForgetPasswordController extends Controller
             return redirect()->back()->with($notification);
         }
 
-        // return $user;
         // Update New User Password Here
 
         $user->password = bcrypt($request->get('password'));
