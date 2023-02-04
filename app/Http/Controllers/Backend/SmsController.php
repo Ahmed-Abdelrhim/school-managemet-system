@@ -55,7 +55,7 @@ class SmsController extends Controller
             // $twilio_number = getenv("TWILIO_FROM");
             $twilio_number = '+16067332573';
 
-            $client = new Client('ACca4d87b5d781f19f73128cee7bfae176', 'e03c9c76a5c166552baf4224f2b90e9b');
+            $client = new Client($account_sid, $auth_token);
             $client->messages->create($receiverNumber, [
                 'from' => $twilio_number,
                 'body' => $message,
