@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ForgetPasswordController extends Controller
@@ -100,8 +101,13 @@ class ForgetPasswordController extends Controller
             return redirect()->back()->with($notification);
         }
 
-        return $user;
+        // return $user;
         // Update New User Password Here
 
+        $user->password = bcrypt($request->get('password'));
+        $user->save();
+        $user = User::query()->where('email',$user_email)->first();
+        auth()->login($user);
+        return redirect()->route('dashboard');
     }
 }
