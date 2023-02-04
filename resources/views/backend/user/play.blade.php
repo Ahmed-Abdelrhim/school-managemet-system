@@ -27,10 +27,10 @@
                                         <thead>
                                         <tr>
                                             <th width="5%">SL</th>
-{{--                                            <th>Role</th>--}}
+                                            {{--                                            <th>Role</th>--}}
                                             <th>Name</th>
                                             <th>Count</th>
-{{--                                            <th>Title</th>--}}
+                                            {{--                                            <th>Title</th>--}}
                                             <th width="25%">Action</th>
 
                                         </tr>
@@ -41,15 +41,17 @@
                                                 <td>{{ $key+1 }}</td>
                                                 <td> {{ $desi->name }}</td>
                                                 <td>{{ $desi->users->count() }}</td>
-{{--                                                <td>{{ $user->email }}</td>--}}
-{{--                                                <td>{{ $user->designation->count() }}</td>--}}
+                                                {{-- <td>{{ $user->email }}</td>--}}
+                                                {{-- <td>{{ $user->designation->count() }}</td>--}}
                                                 <td>
-                                                    <a href="{{ route('users.edit',encrypt($desi->id)) }}" class="btn btn-info">Edit</a>
+                                                    <a href="{{ route('users.edit',encrypt($desi->id)) }}"
+                                                       class="btn btn-info">Edit</a>
                                                     {{--   <a href="#" data-toggle="modal"--}}
                                                     {{-- data-target="#editStudent{{$user->id}}"--}}
                                                     {{-- class="btn btn-info">Edit</a>--}}
 
-                                                    <a href="{{ route('users.delete',$desi->id) }}" class="btn btn-danger" id="delete">Delete</a>
+                                                    <a href="{{ route('users.delete',$desi->id) }}"
+                                                       class="btn btn-danger" id="delete">Delete</a>
                                                     {{-- @include('backend.user.modal')--}}
                                                 </td>
 
