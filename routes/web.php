@@ -496,12 +496,3 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
 });  // Prevent Back Middleware
 
-// 202301291300myPic-1.jpg
-
-//NEXMO_KEY=26df5740
-//NEXMO_SECRET=9C2AE7FXrQTfpvK8
-
-// 23 - Manage User Profile => Video 3 finished
-
-
-// Arc Dark Material

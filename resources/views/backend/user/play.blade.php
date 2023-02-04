@@ -27,10 +27,10 @@
                                         <thead>
                                         <tr>
                                             <th width="5%">SL</th>
-                                            {{--                                            <th>Role</th>--}}
+                                            {{--<th>Role</th>--}}
                                             <th>Name</th>
                                             <th>Count</th>
-                                            {{--                                            <th>Title</th>--}}
+                                            {{-- <th>Title</th>--}}
                                             <th width="25%">Action</th>
 
                                         </tr>
