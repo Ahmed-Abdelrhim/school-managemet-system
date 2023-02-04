@@ -23,7 +23,7 @@ class ForgetPasswordController extends Controller
             $notification = ['message' => 'email may be deleted' ,'alert-type'=>'error'];
             return redirect()->back()->with($notification);
         }
-        return view('backend.sms.check_code',['email'=>$user->email]);
+        return view('backend.sms.check_code',['user_email'=>$user->email]);
     }
 
     public function verifyUserForgetPasswordCode(Request $request , $user_email)
@@ -52,15 +52,56 @@ class ForgetPasswordController extends Controller
         $now = Carbon::now();
         if (Carbon::parse($now)->lessThanOrEqualTo(Carbon::parse($codeRaw->expires_at)) && $codeRaw->is_valid == 1) {
             // Reset Password Page Is Here
-            return redirect()->route('reset.password.form');
+            return redirect()->route('reset.password.form',encrypt($user->email));
         }
-        $notification = ['message' => 'code is not valid any more' ,'alert-type'=>'error'];
+        $notification = ['message' => 'code is not valid any more' ,'alert-type'=>'info'];
 
         return redirect()->back()->with($notification);
     }
 
-    public function resetUserForgottenPassword()
+    public function resetUserForgottenPasswordForm($user_email)
     {
+        $user_email = decrypt($user_email);
+        $user = User::query()->where('email',$user_email)->first();
+        if (!$user) {
+            $notification = ['message' => 'email may be deleted' ,'alert-type'=>'error'];
+            return redirect()->back()->with($notification);
+        }
+
+        $codeRaw = Verification::query()
+            ->where('user_id',$user->id)
+            ->latest()
+            ->first();
+        if ($codeRaw->is_valid == 1) {
+            $codeRaw->is_valid = 0;
+            $codeRaw->save();
+            return view('backend.sms.change_password',['user_email'=> $user_email]);
+        }
+
+        $notification = ['message' => 'Get code and verify it first' ,'alert-type'=>'info'];
+        return redirect()->back();
+    }
+
+    public function storeUserForgottenPassword(Request $request,$user_email)
+    {
+        $user_email = decrypt($user_email);
+
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::query()->where('email',$user_email)->first();
+        if (!$user) {
+            $notification = ['message' => 'email may be deleted' ,'alert-type'=>'error'];
+            return redirect()->back()->with($notification);
+        }
+
+        return $user;
+        // Update New User Password Here
 
     }
 }

@@ -498,7 +498,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('method/play',[ResultReportController::class,'methodPlay']);
     Route::get('Check/User/verificationCode/{user_email}',[ForgetPasswordController::class,'viewCheckCodeForm'])->name('code.check.page');
     Route::post('Verify/User/Forget/Password/Code/{user_email}',[ForgetPasswordController::class,'verifyUserForgetPasswordCode'])->name('verify.user.forget.password.code');
-    Route::post('Reset/User/Forgotten/Password',[ForgetPasswordController::class,'resetUserForgottenPassword'])->name('reset.password.form');
+    Route::get('Reset/User/Forgotten/Password/{user_email}',[ForgetPasswordController::class,'resetUserForgottenPasswordForm'])->name('reset.password.form');
+    Route::post('Reset/User/Forgotten/Password/{user_email}',[ForgetPasswordController::class,'storeUserForgottenPassword'])->name('store.user.forgotten.password');
 
 });  // Prevent Back Middleware
 

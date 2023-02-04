@@ -12,7 +12,7 @@
 
         <x-jet-validation-errors class="mb-4"/>
 
-        <form method="POST" action="{{ route('change.password.from.code',encrypt($id)) }}">
+        <form method="POST" action="{{ route('store.user.forgotten.password',encrypt($user_email)) }}">
             @csrf
 
             <div class="block">
@@ -40,7 +40,7 @@
 </x-guest-layout>
 <script>
     @if(Session::has('message'))
-    var type = "{{ Session::get('alert-type','info') }}"
+        var type = "{{ Session::get('alert-type','info') }}"
     switch (type) {
         case 'info':
             toastr.info(" {{ Session::get('message') }} ");
@@ -58,6 +58,7 @@
             toastr.error(" {{ Session::get('message') }} ");
             break;
     }
+
     @endif
 </script>
 {{--eyJpdiI6IkN3dE5Ob0FBTlpKYlNKcGNMSTVIRVE9PSIsInZhbHVlIjoiSVNhUmh1OUI4YkRxeDhpVkpyNDlCQT09IiwibWFjIjoiMzQxMGIwYWY5ZjliM2UzZWQwOWEzZTRiMjY0MjFlMzViMDVkOTg1OWRmNGUxOWZkYzJlZGYyMGJjMDUxZjY3MyIsInRhZyI6IiJ9--}}
