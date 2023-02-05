@@ -477,8 +477,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::post('send/sms/message', 'sendSms')->name('send.sms');
         });
 
-        Route::get('play',[SmsController::class,'play']);
-
+        Route::get('play', [SmsController::class, 'play']);
 
 
     }); // End Middleware Auth Route
@@ -486,20 +485,26 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
     // Forget Password···
     Route::controller(SmsController::class)->group(function () {
-        Route::get('check/code/{id}','checkCode')->name('check.code');
+        Route::get('check/code/{id}', 'checkCode')->name('check.code');
         Route::post('verify/code/{id}', 'verifyCode')->name('verify.code');
         Route::get('change/password/{user_id}', 'changePassword')->name('change.password.form');
-        Route::post('change/password/To/User/{id}','changePasswordFromCode')->name('change.password.from.code');
+        Route::post('change/password/To/User/{id}', 'changePasswordFromCode')->name('change.password.from.code');
     });
 
-    Route::get('create/faker/users',[SmsController::class,'createUsers']);
-    Route::get('database',[SmsController::class,'databaseOptimization']);
+    Route::get('create/faker/users', [SmsController::class, 'createUsers']);
+    Route::get('database', [SmsController::class, 'databaseOptimization']);
 
-    Route::get('method/play',[ResultReportController::class,'methodPlay']);
-    Route::get('Check/User/verificationCode/{user_email}',[ForgetPasswordController::class,'viewCheckCodeForm'])->name('code.check.page');
-    Route::post('Verify/User/Forget/Password/Code/{user_email}',[ForgetPasswordController::class,'verifyUserForgetPasswordCode'])->name('verify.user.forget.password.code');
-    Route::get('Reset/User/Forgotten/Password/{user_email}',[ForgetPasswordController::class,'resetUserForgottenPasswordForm'])->name('reset.password.form');
-    Route::post('Reset/User/Forgotten/Password/{user_email}',[ForgetPasswordController::class,'storeUserForgottenPassword'])->name('store.user.forgotten.password');
+    Route::get('method/play', [ResultReportController::class, 'methodPlay']);
+
+    // Forgot Password Reset···
+    Route::get('Check/User/verificationCode/{user_email}', [ForgetPasswordController::class, 'viewCheckCodeForm'])->name('code.check.page');
+
+    Route::post('Verify/User/Forget/Password/Code/{user_email}', [ForgetPasswordController::class, 'verifyUserForgetPasswordCode'])
+        ->name('verify.user.forget.password.code');
+    Route::get('Reset/User/Forgotten/Password/{user_email}/{user_verification_code}', [ForgetPasswordController::class, 'resetUserForgottenPasswordForm'])
+        ->name('reset.password.form');
+    Route::post('Reset/User/Forgotten/Password/{user_email}', [ForgetPasswordController::class, 'storeUserForgottenPassword'])
+        ->name('store.user.forgotten.password');
 
 });  // Prevent Back Middleware
 

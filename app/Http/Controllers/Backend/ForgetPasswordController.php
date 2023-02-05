@@ -27,7 +27,7 @@ class ForgetPasswordController extends Controller
         return view('backend.sms.check_code',['user_email'=>$user->email]);
     }
 
-    public function verifyUserForgetPasswordCode(Request $request , $user_email)
+    public function verifyUserForgetPasswordCode(Request $request , $user_email): RedirectResponse
     {
         $user_email = decrypt($user_email);
         $validator = Validator::make($request->all(),[
@@ -53,16 +53,17 @@ class ForgetPasswordController extends Controller
         $now = Carbon::now();
         if (Carbon::parse($now)->lessThanOrEqualTo(Carbon::parse($codeRaw->expires_at)) && $codeRaw->is_valid == 1) {
             // Reset Password Page Is Here
-            return redirect()->route('reset.password.form',encrypt($user->email));
+            return redirect()->route('reset.password.form',[encrypt($user->email) , encrypt($codeRaw->code)] );
         }
         $notification = ['message' => 'code is not valid any more' ,'alert-type'=>'info'];
 
         return redirect()->back()->with($notification);
     }
 
-    public function resetUserForgottenPasswordForm($user_email)
+    public function resetUserForgottenPasswordForm($user_email , $user_verification_code)
     {
         $user_email = decrypt($user_email);
+        $user_verification_code = decrypt($user_verification_code);
         $user = User::query()->where('email',$user_email)->first();
         if (!$user) {
             $notification = ['message' => 'email may be deleted' ,'alert-type'=>'error'];
@@ -71,10 +72,13 @@ class ForgetPasswordController extends Controller
 
         $codeRaw = Verification::query()
             ->where('user_id',$user->id)
+            ->where('code',$user_verification_code)
             ->latest()
             ->first();
+
         if ($codeRaw && $codeRaw->is_valid == 1) {
             $codeRaw->is_valid = 0;
+            $codeRaw->expires_at = Carbon::now()->subMinute()->toDateTimeString();
             $codeRaw->save();
             return view('backend.sms.change_password',['user_email'=> $user_email]);
         }
@@ -101,7 +105,7 @@ class ForgetPasswordController extends Controller
             return redirect()->back()->with($notification);
         }
 
-        // Update New User Password Here
+        // Update New User Password Here···
 
         $user->password = bcrypt($request->get('password'));
         $user->save();

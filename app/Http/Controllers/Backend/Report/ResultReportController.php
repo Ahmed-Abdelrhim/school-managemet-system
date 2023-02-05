@@ -93,6 +93,18 @@ class ResultReportController extends Controller
 
     public function methodPlay()
     {
+        $receiverNumber = '+20 ';
+        $phone_number = '01152067271';
+        $mobile = $phone_number;
+
+        if (str_starts_with($phone_number, '0')) {
+            $mobile = substr($phone_number, 1,strlen($phone_number));
+        }
+
+        $receiverNumber .= $mobile;
+        return $hashed_mobile_number = '+20 ' . 'XXX-XXX-XX-' . $phone_number[-2] . $phone_number[-1];
+
+
         return Carbon::now()->addMinutes(10)->toDateTimeString();
     }
 
