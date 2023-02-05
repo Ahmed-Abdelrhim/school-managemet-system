@@ -120,7 +120,7 @@
                                                     <div class="form-group">
                                                         <div class="controls">
                                                             <img id="showImage"
-                                                                 src="{{ (!empty($user->image))? asset('upload/user_images/'.$user->image):url('upload/no_image.jpg') }}"
+                                                                 src="{{ (!empty(auth()->user()->image))? asset('upload/user_images/'.auth()->user()->image):asset('upload/no_image.jpg') }}"
                                                                  style="width: 100px; width: 100px; border: 1px solid #000000;">
 
                                                         </div>
