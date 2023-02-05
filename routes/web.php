@@ -242,6 +242,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 // Designation All Routes···
 
             Route::get('designation/view', [DesignationController::class, 'ViewDesignation'])->name('designation.view');
+            Route::get('designation/view/users/working/on/{designation_id}', [DesignationController::class, 'designationViewUsersWorkingOn'])
+                ->name('designation.view.users.working.on');
 
             Route::get('designation/add', [DesignationController::class, 'DesignationAdd'])->name('designation.add');
 
@@ -508,3 +510,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
 });  // Prevent Back Middleware
 
+
+// Software Template
+// https://themeforest.net/item/notech-it-solutions-services-drupal-theme/42598838 45$
+
+// Preview
+// https://previewthemes.com/notech/

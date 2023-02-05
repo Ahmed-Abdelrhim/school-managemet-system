@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function UserView()
     {
-        return $users = User::query()->where('role', 'Operator')->count();
+        // return $users = User::query()->where('role', 'Operator')->count();
         if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
             return view('errors.403');
         // $allData = User::all();
