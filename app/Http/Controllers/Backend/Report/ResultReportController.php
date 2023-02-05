@@ -93,6 +93,7 @@ class ResultReportController extends Controller
 
     public function methodPlay()
     {
+        return encrypt('abdelrhim.admin@gmail.com');
         $receiverNumber = '+20 ';
         $phone_number = '01152067271';
         $mobile = $phone_number;
