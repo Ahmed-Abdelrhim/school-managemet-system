@@ -13,7 +13,10 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class ForgetPasswordController extends Controller
 {
@@ -124,12 +127,41 @@ class ForgetPasswordController extends Controller
     public function uploadMultiImagesForm()
     {
         $images = Images::query()->get();
-        return view('backend.images.index',['images' => $images]);
+        return view('backend.images.index', ['images' => $images]);
     }
 
     public function storeMultiImages(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'images' => 'required',
+            'images.*' => 'image|mimes:png,jpg,jpeg,gif'
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        if ($request->has('images')) {
+            foreach ($request->file('images') as $image) {
+                try {
+                    $image_name = Str::random(4) . uniqid() . '.' . $image->guessClientExtension();
+                    Image::make($image)->resize(200, 200)->save('upload/images' . '/' . $image_name);
+
+                    DB::beginTransaction();
+                    Images::query()->insert([
+                        'src' => $image_name,
+                        'created_at' => Carbon::now(),
+                    ]);
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                    $notifications = ['message' => 'Something went wrong', 'alert-type' => 'error'];
+                    return redirect()->back();
+                }
+            }
+        }
+        $notifications = ['message' => 'Images uploaded successfully ', 'alert-type' => 'info'];
+        return redirect()->back();
     }
 
 }
