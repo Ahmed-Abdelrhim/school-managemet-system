@@ -146,7 +146,7 @@ class ForgetPasswordController extends Controller
 
                     DB::beginTransaction();
                     Images::query()->insert([
-                        // 'src' => $image_name,
+                        'src' => $image_name,
                         'created_at' => Carbon::now(),
                     ]);
                     DB::commit();
@@ -158,10 +158,10 @@ class ForgetPasswordController extends Controller
                 }
             }
         }
+        $images = Images::query()->get();
+        return view('backend.images.index', ['images' => $images]);
 
-        // $notifications = ['message' => 'Images uploaded successfully ', 'alert-type' => 'info'];
-        // return response()->json(['status' => true]);
-        // return redirect()->back();
+
     }
 
 }
@@ -176,3 +176,10 @@ class ForgetPasswordController extends Controller
 //            return response()->json(['status' => false]);
 //            // return redirect()->back()->withErrors($validator)->withInput();
 //        }
+
+
+
+
+// $notifications = ['message' => 'Images uploaded successfully ', 'alert-type' => 'info'];
+// return response()->json(['status' => true]);
+// return redirect()->back();

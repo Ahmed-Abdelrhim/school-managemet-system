@@ -41,7 +41,7 @@
                                             </div> <!-- End Upload Row -->
 
 
-                                            <div class="row"><!-- Row -->
+                                            <div class="row show-images"><!-- Row -->
                                                 @if(isset($images) && count($images) > 0)
                                                     @foreach($images as $image)
                                                         <div class="col-md-{{  ceil(12/ count($images)) }}">
@@ -81,6 +81,7 @@
 
                                 </form>
 
+
                             </div>
                             <!-- /.col -->
                         </div>
@@ -115,10 +116,6 @@
     <script>
         $(document).on('click', '#submit-data', function (e) {
             e.preventDefault();
-            $('#email_error').text('');
-            $('#name_error').text('');
-            $('#role_error').text('');
-
             var formData = new FormData($('#uploadMultiImages')[0]);
             $.ajax({
                 type: 'POST',
@@ -129,14 +126,11 @@
                 contentType: false,
                 cache: false,
                 success: function (data) {
-                    console.log(' Status => ' + data.status);
-                    if (data.status == true) {
+                    console.log(' data => ' + data);
+                        $('.show-images').html(data);
                         toastr.success("Images Uploaded Successfully");
-                        // $('#role').val('');
-                    }
                     if (data.status == false) {
                         toastr.error("Something went wrong");
-                        // $('#role').val('');
                     }
                 }
 
@@ -144,7 +138,7 @@
                     var response = $.parseJSON(reject.responseText);
                     $('#errors').text('');
                     $.each(response.errors, function (key, value) {
-                        $('#errors').append('<p class="alert alert-danger">'+ value +'</p>');
+                        $('#errors').append('<p class="alert alert-danger">' + value + '</p>');
                         // $('#' + key + '_error').text(value[0]);
                     })
 
