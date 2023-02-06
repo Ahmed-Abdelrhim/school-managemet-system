@@ -117,5 +117,6 @@ class ForgetPasswordController extends Controller
         $user_after_updating_password = User::query()->where('email', $user_email)->first();
         Auth::login($user_after_updating_password);
         return redirect()->route('dashboard');
+        // EAP means early access program
     }
 }
