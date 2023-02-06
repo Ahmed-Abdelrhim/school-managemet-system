@@ -31,7 +31,6 @@
                                             <div class="row"> <!-- Upload Row -->
 
 
-
                                                 <div class="col-md-4"><!-- Col md 4 -->
                                                     <div class="form-group">
                                                         <h5>Images <span class="text-danger">*</span></h5>
@@ -41,14 +40,31 @@
                                                     </div>
 
                                                 </div> <!-- End Col md 4 -->
-                                                <div class="col-md-4"><!-- Col md 4 -->
-                                                    <div class="form-group">
-                                                        <div class="controls">
-                                                            <img id="showImage" src="{{ url('upload/no_image.jpg') }}"
-                                                                 style="width: 100px; width: 100px; border: 1px solid #000000;" alt="">
+
+                                                @if(isset($images) && count($images) > 0)
+                                                    @foreach($images as $image)
+                                                        <div class="col-md-4"><!-- Col md 4 -->
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                    <img id="showImage" src="{{ asset('upload/images/'.$image->src ) }}"
+                                                                         style="width: 100px; width: 100px; border: 1px solid #000000;" alt="">
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- End Col md 4 -->
+                                                    @endforeach
+                                                @else
+                                                    <div class="col-md-4"><!-- Col md 4 -->
+                                                        <div class="form-group">
+                                                            <div class="controls">
+                                                                <img id="showImage"
+                                                                     src="{{ url('upload/no_image.jpg') }}"
+                                                                     style="width: 100px; width: 100px; border: 1px solid #000000;"
+                                                                     alt="">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div> <!-- End Col md 4 -->
+                                                    </div> <!-- End Col md 4 -->
+
+                                                @endif
 
 
                                             </div> <!-- End Upload Row -->

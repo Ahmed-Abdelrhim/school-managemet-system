@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Http\Controllers\Controller;
+use App\Models\Images;
 use App\Models\User;
 use App\Models\Verification;
 use Carbon\Carbon;
@@ -122,7 +123,8 @@ class ForgetPasswordController extends Controller
 
     public function uploadMultiImagesForm()
     {
-        return view('backend.images.index');
+        $images = Images::query()->get();
+        return view('backend.images.index',['images' => $images]);
     }
 
     public function storeMultiImages(Request $request)
