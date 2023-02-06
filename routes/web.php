@@ -510,7 +510,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         ->name('store.user.forgotten.password');
 
     Route::get('upload/MultiImages',[ForgetPasswordController::class,'uploadMultiImagesForm']);
-    Route::post('upload/MultiImages',[ForgetPasswordController::class,'storeMultiImages'])->name('upload.multi.images');
+    Route::post('upload/MultiImages/Json',[ForgetPasswordController::class,'storeMultiImages'])->name('upload.multi.images');
 
 });  // Prevent Back Middleware
 

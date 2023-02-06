@@ -1,9 +1,5 @@
 @extends('admin.admin_master')
 @section('admin')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-
     <div class="content-wrapper">
         <div class="container-full">
             <!-- Content Header (Page header) -->
@@ -23,9 +19,11 @@
                             <div class="col">
 
                                 <form method="post" action="{{ route('upload.multi.images') }}"
-                                      enctype="multipart/form-data">
+                                      enctype="multipart/form-data" id="uploadMultiImages">
                                     @csrf
+                                    <div id="errors"></div>
                                     <div class="row">
+
                                         <div class="col-12">
 
                                             <div class="row"> <!-- Upload Row -->
@@ -46,7 +44,8 @@
                                             <div class="row"><!-- Row -->
                                                 @if(isset($images) && count($images) > 0)
                                                     @foreach($images as $image)
-                                                        <div class="col-md-{{  ceil(12/ count($images)) }}">    <!-- Col md 4 -->
+                                                        <div class="col-md-{{  ceil(12/ count($images)) }}">
+                                                            <!-- Col md 4 -->
                                                             <div class="form-group">
                                                                 <div class="controls">
                                                                     <img id="showImage"
@@ -76,7 +75,7 @@
                                             <div class="row"><!-- Row -->
                                                 <div class="text-xs-right">
                                                     <input type="submit" class="btn btn-rounded btn-info mb-5"
-                                                           value="Submit">
+                                                           value="Submit" id="submit-data">
                                                 </div>
                                             </div><!--End Row -->
 
@@ -109,4 +108,49 @@
         });
     </script>
 
+@endsection
+@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script>
+        $(document).on('click', '#submit-data', function (e) {
+            e.preventDefault();
+            $('#email_error').text('');
+            $('#name_error').text('');
+            $('#role_error').text('');
+
+            var formData = new FormData($('#uploadMultiImages')[0]);
+            $.ajax({
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                url: "{{route('upload.multi.images')}}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    console.log(' Status => ' + data.status);
+                    if (data.status == true) {
+                        toastr.success("Images Uploaded Successfully");
+                        // $('#role').val('');
+                    }
+                    if (data.status == false) {
+                        toastr.error("Something went wrong");
+                        // $('#role').val('');
+                    }
+                }
+
+                , error: function (reject) {
+                    var response = $.parseJSON(reject.responseText);
+                    $('#errors').text('');
+                    $.each(response.errors, function (key, value) {
+                        $('#errors').append('<p class="alert alert-danger">'+ value +'</p>');
+                        // $('#' + key + '_error').text(value[0]);
+                    })
+
+                },
+
+            });
+        });
+    </script>
 @endsection

@@ -67,7 +67,7 @@ class UserController extends Controller
             DB::rollBack();
             return response()->json(['status' => false]);
         }
-        return response()->json(['status' => true,]);
+        return response()->json(['status' => true]);
         //        $notification = array(
         //            'message' => 'User Inserted Successfully',
         //            'alert-type' => 'success'

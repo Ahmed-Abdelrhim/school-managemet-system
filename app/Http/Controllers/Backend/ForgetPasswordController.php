@@ -7,6 +7,7 @@ use App\Models\Images;
 use App\Models\User;
 use App\Models\Verification;
 use Carbon\Carbon;
+use http\Env\Response;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -132,14 +133,10 @@ class ForgetPasswordController extends Controller
 
     public function storeMultiImages(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'images' => 'required',
             'images.*' => 'image|mimes:png,jpg,jpeg,gif'
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         if ($request->has('images')) {
             foreach ($request->file('images') as $image) {
@@ -149,19 +146,33 @@ class ForgetPasswordController extends Controller
 
                     DB::beginTransaction();
                     Images::query()->insert([
-                        'src' => $image_name,
+                        // 'src' => $image_name,
                         'created_at' => Carbon::now(),
                     ]);
                     DB::commit();
                 } catch (\Exception $e) {
                     DB::rollBack();
-                    $notifications = ['message' => 'Something went wrong', 'alert-type' => 'error'];
-                    return redirect()->back();
+                    // $notifications = ['message' => 'Something went wrong', 'alert-type' => 'error'];
+                    return response()->json(['status' => false]);
+                    // return redirect()->back();
                 }
             }
         }
-        $notifications = ['message' => 'Images uploaded successfully ', 'alert-type' => 'info'];
-        return redirect()->back();
+
+        // $notifications = ['message' => 'Images uploaded successfully ', 'alert-type' => 'info'];
+        // return response()->json(['status' => true]);
+        // return redirect()->back();
     }
 
 }
+//        $validator = Validator::make($request->all(), [
+//            'images' => 'required',
+//            'images.*' => 'image|mimes:png,jpg,jpeg,gif'
+//        ],[
+//            'images.image'=>'upload only images',
+//        ]);
+
+//        if ($validator->fails()) {
+//            return response()->json(['status' => false]);
+//            // return redirect()->back()->withErrors($validator)->withInput();
+//        }
