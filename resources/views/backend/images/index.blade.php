@@ -32,30 +32,26 @@
 
 
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-4"><!-- Col md 4 -->
                                                     <div class="form-group">
                                                         <h5>Images <span class="text-danger">*</span></h5>
                                                         <div class="controls">
                                                             <input type="file" name="images[]" class="form-control"
-                                                                   id="image"></div>
+                                                                   id="image" multiple></div>
                                                     </div>
 
                                                 </div> <!-- End Col md 4 -->
-
-
-                                                <div class="col-md-4">
+                                                <div class="col-md-4"><!-- Col md 4 -->
                                                     <div class="form-group">
                                                         <div class="controls">
                                                             <img id="showImage" src="{{ url('upload/no_image.jpg') }}"
-                                                                 style="width: 100px; width: 100px; border: 1px solid #000000;">
+                                                                 style="width: 100px; width: 100px; border: 1px solid #000000;" alt="">
                                                         </div>
                                                     </div>
                                                 </div> <!-- End Col md 4 -->
 
 
                                             </div> <!-- End Upload Row -->
-
-
                                             <div class="text-xs-right">
                                                 <input type="submit" class="btn btn-rounded btn-info mb-5"
                                                        value="Submit">
