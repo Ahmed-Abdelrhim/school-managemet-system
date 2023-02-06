@@ -8,9 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\AccountEmployeeSalary;
 use App\Models\AccountOtherCost;
 use App\Models\AccountStudentFee;
-use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
-//niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+use PDF;
 
 class ProfiteController extends Controller
 {

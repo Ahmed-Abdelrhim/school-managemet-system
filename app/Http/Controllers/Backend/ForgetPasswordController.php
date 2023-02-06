@@ -119,4 +119,15 @@ class ForgetPasswordController extends Controller
         return redirect()->route('dashboard');
         // EAP means early access program
     }
+
+    public function uploadMultiImagesForm()
+    {
+        return view('backend.images.index');
+    }
+
+    public function storeMultiImages(Request $request)
+    {
+
+    }
+
 }

@@ -14,49 +14,47 @@ use App\Models\MarksGrade;
 
 class MarkSheetController extends Controller
 {
-    public function MarkSheetView(){
+    public function MarkSheetView()
+    {
 
-    	$data['years'] = StudentYear::orderBy('id','desc')->get();
-    	$data['classes'] = StudentClass::all();
-    	$data['exam_type'] = ExamType::all();
-    	return view('backend.report.marksheet.marksheet_view',$data);
+        $data['years'] = StudentYear::orderBy('id', 'desc')->get();
+        $data['classes'] = StudentClass::all();
+        $data['exam_type'] = ExamType::all();
+        return view('backend.report.marksheet.marksheet_view', $data);
 
     }
 
 
-    public function MarkSheetGet(Request $request){
+    public function MarkSheetGet(Request $request)
+    {
 
-    	$year_id = $request->year_id;
-    	$class_id = $request->class_id;
-    	$exam_type_id = $request->exam_type_id;
-    	$id_no = $request->id_no;
+        $year_id = $request->year_id;
+        $class_id = $request->class_id;
+        $exam_type_id = $request->exam_type_id;
+        $id_no = $request->id_no;
 
-    $count_fail = StudentMarks::where('year_id',$year_id)->where('class_id',$class_id)->where('exam_type_id',$exam_type_id)->where('id_no',$id_no)->where('marks','<','33')->get()->count();
-    	// dd($count_fail);
-    $singleStudent = StudentMarks::where('year_id',$year_id)->where('class_id',$class_id)->where('exam_type_id',$exam_type_id)->where('id_no',$id_no)->first();
-    if ($singleStudent == true) {
-    
-    $allMarks = StudentMarks::with(['assign_subject','year'])->where('year_id',$year_id)->where('class_id',$class_id)->where('exam_type_id',$exam_type_id)->where('id_no',$id_no)->get();
-    	// dd($allMarks->toArray());
-    $allGrades = MarksGrade::all();
-    return view('backend.report.marksheet.marksheet_pdf',compact('allMarks','allGrades','count_fail'));
+        $count_fail = StudentMarks::where('year_id', $year_id)->where('class_id', $class_id)->where('exam_type_id', $exam_type_id)->where('id_no', $id_no)->where('marks', '<', '33')->get()->count();
+        // dd($count_fail);
+        $singleStudent = StudentMarks::where('year_id', $year_id)->where('class_id', $class_id)->where('exam_type_id', $exam_type_id)->where('id_no', $id_no)->first();
+        if ($singleStudent == true) {
 
-    }else{
+            $allMarks = StudentMarks::with(['assign_subject', 'year'])->where('year_id', $year_id)->where('class_id', $class_id)->where('exam_type_id', $exam_type_id)->where('id_no', $id_no)->get();
+            // dd($allMarks->toArray());
+            $allGrades = MarksGrade::all();
+            return view('backend.report.marksheet.marksheet_pdf', compact('allMarks', 'allGrades', 'count_fail'));
 
-    	$notification = array(
-    		'message' => 'Sorry These Criteria Donse not match',
-    		'alert-type' => 'error'
-    	);
+        } else {
 
-    	return redirect()->back()->with($notification);
-       }
+            $notification = array(
+                'message' => 'Sorry These Criteria Donse not match',
+                'alert-type' => 'error'
+            );
 
-
-    } // end Method 
+            return redirect()->back()->with($notification);
+        }
 
 
-
+    } // end Method
 
 
 }
- 

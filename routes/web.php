@@ -72,11 +72,12 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::group(['middleware' => 'auth'], function () {
 
 
-        // User Management All Routes···
+        // Users Management All Routes···
 
         Route::prefix('users')->group(function () {
 
             Route::get('/view', [UserController::class, 'UserView'])->name('user.view');
+
 
             Route::get('/add', [UserController::class, 'UserAdd'])->name('users.add');
 
@@ -508,6 +509,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('Reset/User/Forgotten/Password/{user_email}', [ForgetPasswordController::class, 'storeUserForgottenPassword'])
         ->name('store.user.forgotten.password');
 
+    Route::get('upload/MultiImages',[ForgetPasswordController::class,'uploadMultiImagesForm']);
+    Route::post('upload/MultiImages',[ForgetPasswordController::class,'storeMultiImages'])->name('upload.multi.images');
+
 });  // Prevent Back Middleware
 
 
@@ -516,3 +520,11 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
 // Preview
 // https://previewthemes.com/notech/
+
+// Design Patterns·······
+// 1) Builder Pattern
+// 2) Factory Pattern
+// 3) Strategy Pattern
+// 4) Provider Pattern
+// 5) Repository Pattern
+// 6) Facade Pattern
