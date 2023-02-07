@@ -78,7 +78,8 @@
                                                            value="Submit" id="submit-data">
                                                 </div>
                                             </div><!--End Row -->
-
+                                        </div>
+                                    </div>
                                 </form>
 
 
@@ -127,8 +128,8 @@
                 cache: false,
                 success: function (data) {
                     console.log(' data => ' + data);
-                        $('.show-images').html(data);
-                        toastr.success("Images Uploaded Successfully");
+                    $('.show-images').html(data);
+                    toastr.success("Images Uploaded Successfully");
                     if (data.status == false) {
                         toastr.error("Something went wrong");
                     }
