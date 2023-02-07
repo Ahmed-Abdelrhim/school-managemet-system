@@ -63,7 +63,7 @@
                                                             <div class="controls">
                                                                 <img id="showImage"
                                                                      src="{{ url('upload/no_image.jpg') }}"
-                                                                     style="width: 100px; width: 100px; border: 1px solid #000000;"
+                                                                     style="width: 100px; border: 1px solid #000000;"
                                                                      alt="">
                                                             </div>
                                                         </div>
