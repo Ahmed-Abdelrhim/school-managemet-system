@@ -513,6 +513,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('upload/MultiImages',[ForgetPasswordController::class,'uploadMultiImagesForm']);
     Route::post('upload/MultiImages/Json',[ForgetPasswordController::class,'storeMultiImages'])->name('upload.multi.images');
     Route::get('Carousel',[PlayController::class,'carouselImages']);
+    Route::get('download/pdf',[PlayController::class,'downloadPdfFile'])->name('download.pdf');
 
 });  // Prevent Back Middleware
 
