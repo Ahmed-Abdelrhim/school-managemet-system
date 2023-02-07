@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BackEnd\ForgetPasswordController;
+use App\Http\Controllers\BackEnd\PlayController;
 use App\Http\Controllers\Backend\SmsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -511,20 +512,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
     Route::get('upload/MultiImages',[ForgetPasswordController::class,'uploadMultiImagesForm']);
     Route::post('upload/MultiImages/Json',[ForgetPasswordController::class,'storeMultiImages'])->name('upload.multi.images');
+    Route::get('Carousel',[PlayController::class,'carouselImages']);
 
 });  // Prevent Back Middleware
 
-
-// Software Template
-// https://themeforest.net/item/notech-it-solutions-services-drupal-theme/42598838 45$
-
-// Preview
-// https://previewthemes.com/notech/
-
-// Design Patterns·······
-// 1) Builder Pattern
-// 2) Factory Pattern
-// 3) Strategy Pattern
-// 4) Provider Pattern
-// 5) Repository Pattern
-// 6) Facade Pattern
