@@ -21,6 +21,10 @@ class PlayController extends Controller
     {
         $allData = User::query()->get(['id','usertype','name','email','Code']);
         $pdf = Pdf::loadView('backend.images.pdf', ['allData' =>$allData]);
-        return $pdf->download('users_file.pdf');
+        //        $pdf = Pdf::loadView('backend.images.pdf',['allData' =>$allData])
+        //            ->setPaper('a4', 'landscape')
+        //            ->setWarnings(false);
+
+        return $pdf->download('users_new_file.pdf');
     }
 }
