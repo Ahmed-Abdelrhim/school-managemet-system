@@ -81,6 +81,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
 
             Route::get('/add', [UserController::class, 'UserAdd'])->name('users.add');
+            Route::get('view/all', [UserController::class, 'usersJson'])->name('users.dataTables');
 
             Route::post('/store', [UserController::class, 'UserStore'])->name('users.store');
 

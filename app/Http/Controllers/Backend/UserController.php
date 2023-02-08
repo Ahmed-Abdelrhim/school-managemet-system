@@ -8,18 +8,47 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
     public function UserView()
     {
+        return view('backend.user.view_user');
         // return $users = User::query()->where('role', 'Operator')->count();
-        if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
-            return view('errors.403');
         // $allData = User::all();
-        $data['allData'] = User::query()->where('usertype', 'Admin')->select(['id','role','name','email','code'])->get();
-        return view('backend.user.view_user', $data);
 
+
+        //        if (ucfirst(strtolower(auth()->user()->role)) != 'Admin')
+        //            return view('errors.403');
+        //
+        //        $data['allData'] = User::query()->where('usertype', 'Admin')->select(['id', 'role', 'name', 'email', 'code'])->get();
+        //        return view('backend.user.view_user', $data);
+
+    }
+
+    public function usersJson()
+    {
+        $users = User::query()->get();
+        return DataTables::of($users)
+            ->addColumn('id', function ($user) {
+                return $user->id;
+            })
+            ->addColumn('name', function ($user) {
+                return $user->name;
+            })
+            ->addColumn('email', function ($user) {
+                return $user->email;
+            })
+            ->addColumn('code', function ($user) {
+                return $user->code;
+            })
+            ->addColumn('actions', function ($user) {
+                return view('backend.user._action', ['user' => $user]);
+            })
+            ->rawColumns(['actions'])
+            ->tojson();
+            // ->make(true);
     }
 
 

@@ -26,11 +26,18 @@
                             <!-- /.box-header -->
                             <div class="box-body">
                                 <div class="table-responsive">
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <!-- example1    table table-bordered table-striped   -->
+                                    <table id="dataTable-example" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
-                                            <th width="5%">SL</th>
-                                            <th>Role</th>
+                                            {{--                                            <th width="5%">SL</th>--}}
+                                            {{--                                            <th>Role</th>--}}
+                                            {{--                                            <th>Name</th>--}}
+                                            {{--                                            <th>Email</th>--}}
+                                            {{--                                            <th>Code</th>--}}
+                                            {{--                                            <th width="25%">Action</th>--}}
+
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Code</th>
@@ -38,31 +45,12 @@
 
                                         </tr>
                                         </thead>
+
+
                                         <tbody>
-                                        @foreach($allData as $key => $user )
-                                            <tr>
-                                                <td>{{ $key+1 }}</td>
-                                                <td> {{ $user->role }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->code }}</td>
-                                                <td>
-                                                    <a href="{{ route('users.edit',encrypt($user->id)) }}" class="btn btn-info">Edit</a>
-                                                    {{--   <a href="#" data-toggle="modal"--}}
-                                                    {{-- data-target="#editStudent{{$user->id}}"--}}
-                                                    {{-- class="btn btn-info">Edit</a>--}}
-
-                                                    <a href="{{ route('users.delete',$user->id) }}" class="btn btn-danger" id="delete">Delete</a>
-                                                    {{-- @include('backend.user.modal')--}}
-                                                </td>
-
-                                            </tr>
-                                        @endforeach
-
                                         </tbody>
-                                        <tfoot>
-
-                                        </tfoot>
+                                        {{--   <tfoot>--}}
+                                        {{--  </tfoot>--}}
                                     </table>
                                 </div>
                             </div>
@@ -82,3 +70,54 @@
     </div>
 
 @endsection
+@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var table = $('#dataTable-example').DataTable({
+                serverSide: true,
+                processing: true,
+                pagingType: 'full_numbers',
+                paging: true,
+                pagingTypeSince: 'numbers',
+                'fixedHeader': true,
+                {{--ajax: {--}}
+                    {{--    url: "{{Route('users.dataTables')}}"--}}
+                    {{--},--}}
+                ajax: "{{Route('users.dataTables')}}",
+                "ordering": false,
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'email', name: 'email'},
+                    {data: 'code', name: 'code'},
+                    {data: 'actions', name: 'actions'},
+                ]
+
+            });
+        });
+    </script>
+@endsection
+
+
+
+
+{{--                                        @foreach($allData as $key => $user )--}}
+{{--                                            <tr>--}}
+{{--                                                <td>{{ $key+1 }}</td>--}}
+{{--                                                <td> {{ $user->role }}</td>--}}
+{{--                                                <td>{{ $user->name }}</td>--}}
+{{--                                                <td>{{ $user->email }}</td>--}}
+{{--                                                <td>{{ $user->code }}</td>--}}
+{{--                                                <td>--}}
+{{--                                                    <a href="{{ route('users.edit',encrypt($user->id)) }}" class="btn btn-info">Edit</a>--}}
+{{--                                                    --}}{{--   <a href="#" data-toggle="modal"--}}
+{{--                                                    --}}{{-- data-target="#editStudent{{$user->id}}"--}}
+{{--                                                    --}}{{-- class="btn btn-info">Edit</a>--}}
+{{--                                                    --}}{{-- @include('backend.user.modal')--}}
+{{--                                                    <a href="{{ route('users.delete',$user->id) }}" class="btn btn-danger" id="delete">Delete</a>--}}
+{{--                                                </td>--}}
+
+{{--                                            </tr>--}}
+{{--                                        @endforeach--}}
