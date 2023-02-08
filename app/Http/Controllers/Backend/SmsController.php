@@ -49,13 +49,14 @@ class SmsController extends Controller
         $receiverNumber .= $mobile;
         $message = $request->get('msg');
 
-        try {
+//        try {
             $account_sid = getenv("TWILIO_SID");
             $auth_token = getenv("TWILIO_TOKEN");
             // $twilio_number = getenv("TWILIO_FROM");
-            $twilio_number = '+16067332573';
+            // $twilio_number = '+16067332573';
+            $twilio_number = '+15005550006';
 
-            $client = new Client($account_sid, $auth_token);
+            $client = new Client('ACdd4597bb33934ae1d78536fb528d3c80', 'f04d3ff44c05dfc02c52c43ff5e64b04');
             $client->messages->create($receiverNumber, [
                 'from' => $twilio_number,
                 'body' => $message,
@@ -66,13 +67,14 @@ class SmsController extends Controller
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
-        } catch (\Exception $e) {
-            $notification = array(
-                'message' => 'Something Went Wrong try again!',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
-        }
+
+//        } catch (\Exception $e) {
+//            $notification = array(
+//                'message' => 'Something Went Wrong try again!',
+//                'alert-type' => 'error'
+//            );
+           // return redirect()->back()->with($notification);
+//        }
     }
 
     public function checkCode($user_id)

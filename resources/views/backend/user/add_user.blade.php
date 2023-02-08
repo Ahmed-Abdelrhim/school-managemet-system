@@ -120,6 +120,7 @@
             // $('#details_ar_error').text('');
             // $('#details_en_error').text('');
             var formData = new FormData($('#addUserForm')[0]);
+            //
             $.ajax({
                 type: 'POST',
                 // enctype: 'multipart/form-data',
