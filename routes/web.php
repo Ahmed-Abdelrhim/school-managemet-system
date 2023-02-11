@@ -516,5 +516,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('Carousel',[PlayController::class,'carouselImages']);
     Route::get('download/pdf',[PlayController::class,'downloadPdfFile'])->name('download.pdf');
 
+    Route::get('play/With/API',[PlayController::class,'playWithApiCreateUser']);
+
 });  // Prevent Back Middleware
 
