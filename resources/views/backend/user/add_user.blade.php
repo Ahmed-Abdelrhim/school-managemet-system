@@ -120,7 +120,7 @@
             // $('#details_ar_error').text('');
             // $('#details_en_error').text('');
             var formData = new FormData($('#addUserForm')[0]);
-            //
+
             $.ajax({
                 type: 'POST',
                 // enctype: 'multipart/form-data',
@@ -140,27 +140,30 @@
 
                     }
                 }
-                // , error: function (reject) {
-                //     var response = $.parseJSON(reject.responseText);
-                //     $.each(response.errors, function (key, val) {
-                //         $("#" + key + "_error").text(val[0]);
-                //     });
-                // }
                 , error : function (reject) {
                     var response = $.parseJSON(reject.responseText);
                     $.each(response.errors , function(key , value) {
                         $('#'+key+'_error').text(value[0]);
                     })
 
-                    // var response = $.parseJSON(reject.responseText);
-                    // $.each(response.errors , function(key , value) {
-                    //     $('#'+key+'_error').text(value);
-                    // });
-                    // console.log(response);
-                    // console.log(reject)
+
                 },
 
             });
         });
     </script>
 @endsection
+
+{{--// , error: function (reject) {--}}
+{{--//     var response = $.parseJSON(reject.responseText);--}}
+{{--//     $.each(response.errors, function (key, val) {--}}
+{{--//         $("#" + key + "_error").text(val[0]);--}}
+{{--//     });--}}
+{{--// }--}}
+
+{{--// var response = $.parseJSON(reject.responseText);--}}
+{{--// $.each(response.errors , function(key , value) {--}}
+{{--//     $('#'+key+'_error').text(value);--}}
+{{--// });--}}
+{{--// console.log(response);--}}
+{{--// console.log(reject)--}}

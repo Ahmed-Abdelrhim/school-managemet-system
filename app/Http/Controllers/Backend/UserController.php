@@ -97,14 +97,6 @@ class UserController extends Controller
             return response()->json(['status' => false]);
         }
         return response()->json(['status' => true]);
-        //        $notification = array(
-        //            'message' => 'User Inserted Successfully',
-        //            'alert-type' => 'success'
-        //        );
-
-
-        // return redirect()->route('user.view')->with($notification);
-
     }
 
 

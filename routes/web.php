@@ -484,6 +484,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
         Route::get('play', [SmsController::class, 'play']);
 
+        Route::get('playing',[]);
+
 
     }); // End Middleware Auth Route
 
